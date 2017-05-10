@@ -208,7 +208,7 @@ $(function() {
 
   $.ajax({
       dataType: 'json',
-      url: 'http://ip-api.com/json'
+      url: 'https://ipapi.co/json'
     })
     .then(function(data) {
       var yourLocation = data.city + ',' + data.zip + ',' + data.countryCode;
