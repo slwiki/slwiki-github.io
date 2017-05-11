@@ -29,7 +29,7 @@ body {
 #namer {
  position: relative;
  max-width: 400px;
- margin: 0px auto;
+ margin: 150px auto 0;
 }
 
 #namer input {
@@ -42,7 +42,6 @@ body {
  text-align: center;
  padding: 10px;
     border-radius: 50px;
-	    color: black;
 }
 
 #namer input.shake {
@@ -54,7 +53,7 @@ body {
 
 #namer input:focus {
  outline: 0;
-	 color: black;
+	color: black;
 }
 
 #namer input::placeholder {
@@ -184,15 +183,14 @@ body {
   </style>
 </head>
 <body>
-	<p style="
-    text-align: center;
-    padding-top: 300px;
-">Enter the date below to calculate membership.</p>
-   <div id="namer">
+
+   <div style="padding-top:150px;" id="namer">
+       <p style="text-align:center;">Enter the date below to calculate membership.</p>
   <div id="namer-input">
  <form class="js-dob-calculator">
+
 	<input id="dob-input" class="js-dob-calculator-input" type="text" placeholder="dd/mm/yyyy" id="dob-input">
-	<p style='text-align:center;" class="js-result"></p>
+	<p style="text-align:center;" class="js-result"></p>
 </form>
 
   </div>
@@ -212,7 +210,7 @@ $('.js-dob-calculator').submit(function(event) {
 	var differenceMonths = today.diff(inputConvert, 'months'); // calculate difference in months
 	var differenceDays = today.diff(inputConvert, 'days'); // calculate difference in days
 
-	var finalResult = ' ' + difference + ' year/s' + differenceMonths + ' months or ' + differenceDays + ' days.'; // Output
+	var finalResult = ' ' + difference + ' years old or, ' + differenceMonths + ' months or ' + differenceDays + ' days.'; // Output
 
 	$(this).find('.js-result').append(finalResult); // append result to empty paragraph tag
 
