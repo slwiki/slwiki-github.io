@@ -220,7 +220,7 @@ $(function() {
     var appid = '58b6f7c78582bffab3936dac99c31b25';
     var requestWeather = $.ajax({
       dataType: 'json',
-      url: 'http://api.openweathermap.org/data/2.5/weather',
+      url: 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather',
       data: {
         q: input,
         units: 'imperial',
@@ -229,7 +229,7 @@ $(function() {
     });
     var requestForecast = $.ajax({
       dataType: 'json',
-      url: 'http://api.openweathermap.org/data/2.5/forecast/daily',
+      url: 'https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/forecast/daily',
       data: {
         q: input,
         units: 'imperial',
