@@ -209,7 +209,7 @@ $('.js-dob-calculator').submit(function(event) {
 	var differenceMonths = today.diff(inputConvert, 'months'); // calculate difference in months
 	var differenceDays = today.diff(inputConvert, 'days'); // calculate difference in days
 
-	var finalResult = ' ' + difference + ' years old or, ' + differenceMonths + ' months or ' + differenceDays + ' days.'; // Output
+	var finalResult = ' ' + difference + ' year/s' + differenceMonths + ' months or ' + differenceDays + ' days.'; // Output
 
 	$(this).find('.js-result').append(finalResult); // append result to empty paragraph tag
 
