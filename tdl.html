@@ -345,8 +345,8 @@
         $mdDialog.show(
           $mdDialog.alert()
             .parent(angular.element(document.body))
-            .title('Angular Material To-Do')
-            .content("This was a project I used to learn Angular Material, various javascript libraries and local storage. Try re-ordering your list items by dragging, or deleting the default lists and list-items and adding your own. Your lists will persist until you clear your browser data.")
+            .title('SLWiki To DO List/Reminders and much more.')
+            .content("This app uses local storage on computer so that means only you have access to the list.")
             .ariaLabel('App Info')
             .ok('Got it!')
             .targetEvent(ev)
@@ -365,7 +365,7 @@
           disabled: false,
           items: [
             {
-              name:'local-storage lists app',
+              name:'To do list app uses local-storage for data.',
               completed: false
             },
             {
@@ -379,14 +379,10 @@
             {
               name:'Drag list items to reorder',
               completed: false
-            },
-            {
-              name:'please hire me: me@clnhll.com',
-              completed: false
             }
           ]},
         {
-          title: 'Groceries',
+          title: 'Reminders',
           disabled: false,
           items: [
             {
@@ -398,7 +394,7 @@
               completed: false,
             },
             {
-              name:'I should buy fruit so my insides don\'t rot',
+              name:'You can add more tabs by adding new list title.',
               completed: true
             }
             ]}
