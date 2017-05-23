@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Angular Material Todo Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+  
+  <link rel='stylesheet prefetch' href='https://clnhll.com/todo/css/angular-material.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  <style>
+  .tabsdemoDynamicTabs md-content {
+  background-color: transparent !important; }
+  .tabsdemoDynamicTabs md-content md-tabs {
+    border: none;
+    padding: 0px;
+  }
+    .tabsdemoDynamicTabs md-content md-tabs md-tab-content {
+      background: #f6f6f6; }
+    .tabsdemoDynamicTabs md-content md-tabs md-tabs-canvas {
+      background: white; }
+  .tabsdemoDynamicTabs md-content h1:first-child {
+    margin-top: 0; }
+.tabsdemoDynamicTabs md-input-container {
+  padding-bottom: 0; }
+.tabsdemoDynamicTabs .remove-tab {
+  margin-bottom: 40px; }
+.tabsdemoDynamicTabs .demo-tab > div > div {
+  padding: 25px;
+  box-sizing: border-box; }
+.tabsdemoDynamicTabs .edit-form input {
+  width: 100%; }
+.tabsdemoDynamicTabs md-tabs {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+.tabsdemoDynamicTabs md-tab[disabled] {
+  opacity: 0.5; }
+.tabsdemoDynamicTabs label {
+  text-align: left; }
+.tabsdemoDynamicTabs .long > input {
+  width: 264px; }
+.tabsdemoDynamicTabs .md-button.add-tab {
+  transform: translateY(5px); }
+
+
+  .clean {
+      text-align: left !important;
+      position: relative;
+      text-overflow: ellipsis;
+    }
+  .clean:hover {
+      background: none !important;
+      color: black;
+    }
+   .strike {
+      text-decoration: line-through !important;
+      -webkit-transition: linear all .5s;
+      transition: linear all .5s;
+      text-align: left;
+      position: relative;
+      text-overflow: ellipsis;
+    }
+  .strike:hover {
+      background: none !important;
+      color: black;
+      text-decoration: line-through;
+
+    }
+    .check {
+      position: relative;
+      display: inline-block;
+      margin-top:10px
+    }
+
+    ul[dnd-list], ul[dnd-list] > li {
+        position: relative;
+    }
+    ul[dnd-list] .dndDraggingSource {
+        opacity:.5;
+    }
+
+    md-dialog md-dialog-content {
+      padding:24px 24px 0 24px !important;
+      line-height: 20pt !important;
+    }
+
+    .md-button.md-icon-button {
+        margin: 0 0px;
+        height: 25px;
+        min-width: 0;
+        line-height: 48px;
+        padding-left: 0;
+        padding-right: 0;
+        width: 25px;
+        border-radius: 50%;
+    }
+    .md-button.md-fab.md-fab-bottom-left {
+      bottom: 5px;
+      left: 5px;
+      position: fixed;
+    }
+    .add-list-form {
+      border-top: 1px solid rgba(0, 0, 0, 0.12);
+    }
+*:focus {
+  outline: none;
+
+}
+
+  </style>
+</head>
+
+<body>
+  <div ng-app="MyApp" ng-controller="AppCtrl" class="sample tabsdemoDynamicTabs" layout="column" >
+  <md-content class="md-padding" style="padding: 0;">
+    <md-tabs md-selected="selectedIndex" md-border-bottom="" md-autoselect=""
+    ng-click="saveTab(selectedIndex)"
+    md-dynamic-height>
+      <md-tab ng-repeat="list in lists track by $index" ng-disabled="tab.disabled" label="{{list.title}}">
+        <div class="demo-tab tab{{$index%4}}" style="padding: 0px; text-align: center;">
+
+
+          <md-card style="margin: 8px 8px -6px 8px;"> 
+
+            <md-content
+              style="padding: 10px 15px 0 15px"
+              layout-padding>
+
+            <form ng-submit="addItem($index)">
+
+              <div layout>
+
+                <md-input-container flex>
+                  <label>New item...</label>
+                  <input type="text" ng-model="inputItem[$index]">
+                </md-input-container>
+
+                <md-button
+                class="md-raised md-primary"
+                 ng-disabled="!inputItem[$index]"
+                 type="submit"
+                 style="width:20%; height: 45px; margin: 5px 0 10px 0; margin-left:10px">add</md-button>
+
+              </div>
+
+              <md-input-container
+                style="padding-bottom:20px;"
+                flex>
+                <label>Live search...</label>
+                <input type="text" ng-model="myFilter.name">
+              </md-input-container>
+
+            </form>
+            </md-content>
+            <md-content id="listcontent" layout-padding
+                        style="padding: 0 15px 0 15px">
+            <!-- <div ng-repeat="item in list | filter:myFilter track by $index" class="listItem"> !-->
+              <ul
+                style="list-style-type:none; padding: 0; margin: 0"
+                dnd-list="list.items" ng-mouseup="updateCompleted()">
+                <!-- track by $index  !-->
+
+                <li
+                  ng-repeat="item in list.items | filter:myFilter"
+                  ng-click=""
+                  dnd-draggable="item"
+                  dnd-moved="list.items.splice($index, 1); updateCompleted()"
+                  dnd-effect-allowed="move"
+                  dnd-selected="models.selected = item"
+                  ng-class="{'selected': models.selected === item}">
+
+                  <div layout>
+                    <md-button
+                      md-no-ink
+                      class="delete-button md-icon-button"
+                      aria-label="More"
+                      ng-click="deleteItem($parent.$index, $index)"
+                      style="font-size:10pt; color: crimson !important; opacity: .8; font-weight: bold">&#x2715
+                    </md-button>
+
+                    <md-button
+                      md-no-ink class="listItem"
+                      ng-class="{strike: item.completed, clean: !item.completed}"
+                      ng-click="item.completed=!item.completed;  updateCompleted()"
+                      flex>{{ item.name }}
+                    </md-button>
+
+                    <md-checkbox
+                      ng-model="item.completed"
+                      class="check"
+                      ng-click="updateCompleted()"
+                      aria-label="checkbox">
+                    </md-checkbox>
+
+                  </div>
+
+                </li>
+
+              </ul>
+
+              </md-content>
+
+              <div
+                class="md-actions"
+                layout="row"
+                layout-align="center"
+                style="padding:10px 24px; width:100%">
+
+                <span flex></span>
+
+                <md-button
+                  class="md-primary"
+                  ng-click="clear($index)">clear completed
+                </md-button>
+
+                <md-button
+                  class="md-primary"
+                  ng-click="removeTab(list)"
+                  ng-disabled="lists.length <= 1">Delete List
+                </md-button>
+
+              </div>
+
+            </md-card>
+
+
+          <br>
+
+        </div>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+
+  <form ng-submit="addTab()" layout="column" class="md-padding add-list-form" style="padding-top: 0;">
+    <div layout="row" layout-sm="column">
+      <div flex="" style="position: relative;">
+
+      </div>
+      <md-input-container>
+        <label for="label">New list title...</label>
+        <input type="text" id="label" ng-model="tTitle">
+      </md-input-container>
+
+      <md-button class="add-tab md-primary md-raised" ng-disabled="!tTitle" type="submit" style="margin-right: 0;">Add List</md-button>
+    </div>
+  </form>
+  <md-button
+    class="md-fab md-primary md-fab-bottom-left"
+    ng-click="showAlert($event)">INFO
+  </md-button>
+</div>
+  <script src='https://clnhll.com/todo/js/angular.js'></script>
+<script src='https://clnhll.com/todo/js/angular-material.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js'></script>
+<script src='https://clnhll.com/todo/js/angular-drag-and-drop-lists.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-messages.min.js'></script>
+<script src='https://clnhll.com/todo/js/assets-cache.js'></script>
+
+    <script>
+    (function () {
+  'use strict';
+  angular
+      .module('MyApp',['ngMaterial','dndLists'])
+      .controller('AppCtrl', AppCtrl)
+      .service('local',local);
+
+  function AppCtrl ($scope, $log, $mdDialog, local) {
+    var tabs = [
+          { title: 'One', content: "Tabs will become paginated if there isn't enough room for them."},
+          { title: 'Two', content: "You can swipe left and right on a mobile device to change tabs."},
+          { title: 'Three', content: "You can bind the selected tab via the selected attribute on the md-tabs element."},
+          { title: 'Four', content: "If you set the selected tab binding to -1, it will leave no tab selected."},
+          { title: 'Five', content: "If you remove a tab, it will try to select a new one."},
+          { title: 'Six', content: "There's an ink bar that follows the selected tab, you can turn it off if you want."},
+          { title: 'Seven', content: "If you set ng-disabled on a tab, it becomes unselectable. If the currently selected tab becomes disabled, it will try to select the next tab."},
+          { title: 'Eight', content: "If you look at the source, you're using tabs to look at a demo for tabs. Recursion!"},
+          { title: 'Nine', content: "If you set md-theme=\"green\" on the md-tabs element, you'll get green tabs."},
+          { title: 'Ten', content: "If you're still reading this, you should just go check out the API docs for tabs!"}
+        ],
+        selected = null,
+        previous = null;
+    $scope.tabs = tabs;
+    $scope.selectedIndex = 2;
+    $scope.$watch('selectedIndex', function(current, old){
+      previous = selected;
+      selected = tabs[current];
+      if ( old + 1 && (old != current)) $log.debug('Goodbye ' + previous.title + '!');
+      if ( current + 1 )                $log.debug('Hello ' + selected.title + '!');
+    });
+
+    $scope.lists=local.get(),
+    $scope.selectedIndex = local.getTab();
+
+    $scope.saveTab = function() {
+      local.setTab($scope.selectedIndex);
+    }
+
+      $scope.addTab = function () {
+        $scope.lists.push({ title: $scope.tTitle, items: [], disabled: false});
+        $scope.tTitle="";
+        local.set($scope.lists)
+      };
+      $scope.removeTab = function (tab) {
+        if ($scope.lists.length === 1) {return}
+        var index = $scope.lists.indexOf(tab);
+        $scope.lists.splice(index, 1);
+        local.set($scope.lists);
+      };
+
+      $scope.inputItem=[];
+      $scope.addItem=function(listIndex){
+        if ($scope.inputItem[listIndex]=="") {return}
+        $scope.lists[listIndex].items.push({
+          name: $scope.inputItem[listIndex],
+          completed: false
+        });
+        local.set($scope.lists);
+        $scope.inputItem[listIndex]='';
+      }
+
+      $scope.updateCompleted = function() {
+        local.set($scope.lists);
+      }
+
+      $scope.clear=function(index) {
+        for (var i=0; i < $scope.lists[index].items.length; i++) {
+          if ($scope.lists[index].items[i].completed) {
+            $scope.lists[index].items[i]=null;
+          }
+        }
+        $scope.lists[index].items = $scope.lists[index].items.filter(function(item) {return item!==null});
+        local.set($scope.lists);
+      }
+
+      $scope.deleteItem=function(listIndex,itemIndex) {
+        $scope.lists[listIndex].items.splice(itemIndex,1);
+        local.set($scope.lists);
+      }
+
+      $scope.update = function(){local.set($scope.lists);}
+
+      $scope.showAlert = function(ev) {
+        $mdDialog.show(
+          $mdDialog.alert()
+            .parent(angular.element(document.body))
+            .title('Angular Material To-Do')
+            .content("This was a project I used to learn Angular Material, various javascript libraries and local storage. Try re-ordering your list items by dragging, or deleting the default lists and list-items and adding your own. Your lists will persist until you clear your browser data.")
+            .ariaLabel('App Info')
+            .ok('Got it!')
+            .targetEvent(ev)
+        );
+      }
+
+  }
+
+
+
+    function local() {
+      this.get=function(){
+        var defaultList = [
+          {
+          title: 'Todo',
+          disabled: false,
+          items: [
+            {
+              name:'local-storage lists app',
+              completed: false
+            },
+            {
+              name:'Add a new list item above',
+              completed: true,
+            },
+            {
+              name:'Create a new list with the form below',
+              completed: false
+            },
+            {
+              name:'Drag list items to reorder',
+              completed: false
+            },
+            {
+              name:'please hire me: me@clnhll.com',
+              completed: false
+            }
+          ]},
+        {
+          title: 'Groceries',
+          disabled: false,
+          items: [
+            {
+              name:'Multple tabs',
+              completed: false
+            },
+            {
+              name:'How cool!',
+              completed: false,
+            },
+            {
+              name:'I should buy fruit so my insides don\'t rot',
+              completed: true
+            }
+            ]}
+          ];
+
+        if (localStorage !== null) {
+          return localStorage.getItem('lists')!==null ? JSON.parse(localStorage.getItem('lists')) : defaultList;
+        } else {
+          return defaultList;
+        }
+      };
+      this.set=function(lists) {
+        if (localStorage !== null) {
+          localStorage.setItem('lists',JSON.stringify(lists));
+        }
+      }
+      this.getTab = function() {
+        if (localStorage !== null) {
+          return localStorage.getItem('savedTab')!==null ? JSON.parse(localStorage.getItem('savedTab')) : 0;
+        } else {
+          return 0;
+        }
+      }
+      this.setTab = function(tab) {
+        if (localStorage !== null) {
+          localStorage.setItem('savedTab',JSON.stringify(tab));
+        }
+      }
+
+    };
+
+
+
+})();
+    </script>
+
+</body>
+</html>
