@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Notes App</title>
+  <style>
+    body {
+    padding: 16px;
+}
+    
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  <div class = "container" id = "app">
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.28.1/react-bootstrap.min.js'></script>
+
+    <script>
+  'use strict';
+
+var Panel = ReactBootstrap.Panel,
+    Accordion = ReactBootstrap.Accordion;
+var Button = ReactBootstrap.Button,
+    Input = ReactBootstrap.Input;
+var ButtonToolbar = ReactBootstrap.ButtonToolbar;
+var Modal = ReactBootstrap.Modal;
+
+var ListGroupItem = ReactBootstrap.ListGroupItem;
+var FieldGroup = ReactBootstrap.FieldGroup;
+var Form = ReactBootstrap.Form;
+var Col = ReactBootstrap.Col;
+var FormGroup = ReactBootstrap.FormGroup;
+var ControlLabel = ReactBootstrap.ControlLabel;
+var FormControl = ReactBootstrap.FormControl;
+var Well = ReactBootstrap.Well;
+var PanelGroup = ReactBootstrap.PanelGroup;
+
+//AdderButton is the button that triggers modals which edit, delte and add Notes
+var AdderButton = React.createClass({
+  displayName: 'AdderButton',
+
+  getInitialState: function getInitialState() {
+    var NoteProp = this.props.NoteProp;
+    var ingredientProp = this.props.ingredientProp;
+
+    return { showModal: this.props.showModal,
+      Note: NoteProp,
+      ingredients: ingredientProp };
+  },
+  handleIngredient: function handleIngredient(event) {
+    this.setState({ ingredients: event.target.value });
+  },
+  handleNote: function handleNote(event) {
+    this.setState({ Note: event.target.value });
+  },
+
+  close: function close() {
+    this.props.editProp ? this.props.buttonEditValue(null) : null;
+    this.setState({ showModal: false,
+      Note: '',
+      ingredients: '' });
+  },
+
+  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+    this.setState({
+      showModal: nextProps.showModal,
+      editProp: nextProps.editProp,
+      Note: nextProps.NoteProp,
+      ingredients: nextProps.ingredientProp
+    });
+  },
+
+  open: function open() {
+    this.setState({ showModal: true });
+  },
+
+  handleSubmission: function handleSubmission() {
+    var Notes = this.state.Note;
+    var ingredient = this.state.ingredients;
+    ingredient = ingredient.split(',');
+    while (ingredient.indexOf('') >= 0) {
+      var index = ingredient.indexOf('');
+      ingredient.splice(index, 1);
+    }
+    ingredient = ingredient == [] ? ["No Ingredient Added"] : ingredient;
+    Notes = !Notes ? "Untitled" : Notes;
+    var output = {
+      Note: Notes,
+      ingredients: ingredient
+    };
+    this.props.editProp ? this.props.buttonEditValue(output) : this.props.buttonReturnValue(output);
+
+    this.setState({ Note: '',
+      ingredients: '', showModal: false });
+  },
+  render: function render() {
+
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        Button,
+        { bsStyle: 'primary', onClick: this.open },
+        '+ Add Note'
+      ),
+      React.createElement(
+        Modal,
+        { show: this.state.showModal, onHide: this.close },
+        React.createElement(
+          Modal.Header,
+          { closeButton: true },
+          React.createElement(
+            Modal.Title,
+            null,
+            this.props.editProp ? "Edit Note" : "Add a Note"
+          )
+        ),
+        React.createElement(
+          Modal.Body,
+          null,
+          React.createElement(
+            'form',
+            null,
+            React.createElement(Input, { type: 'text', label: 'Note', placeholder: 'Note Title', value: this.state.Note, onChange: this.handleNote }),
+            React.createElement(Input, { type: 'textarea', label: '', placeholder: '', value: this.state.ingredients, onChange: this.handleIngredient })
+          )
+        ),
+        React.createElement(
+          Modal.Footer,
+          null,
+          React.createElement(
+            ButtonToolbar,
+            null,
+            React.createElement(
+              Button,
+              { bsStyle: 'primary', onClick: this.handleSubmission },
+              this.props.editProp ? "Edit Note" : "Add Note"
+            ),
+            React.createElement(
+              Button,
+              { bsStyle: 'danger', onClick: this.close },
+              'Close'
+            )
+          )
+        )
+      )
+    );
+  }
+});
+//SIngleAccordion is the individual Notes in the panel
+var SingleAccordion = React.createClass({
+  displayName: 'SingleAccordion',
+
+  delete: function _delete() {
+    this.props.accordionDeleteProp(this.props.keyProp);
+  },
+  edit: function edit() {
+    this.props.accordionEditProp(this.props.keyProp);
+  },
+  render: function render() {
+    var rows = [];
+    for (var i = 0; i < this.props.infoProp.ingredients.length; i++) {
+      rows.push(React.createElement(
+        ListGroupItem,
+        null,
+        this.props.infoProp.ingredients[i]
+      ));
+    }
+    return React.createElement(
+      'div',
+      null,
+      'Notes',
+      rows,
+      React.createElement('br', null),
+      React.createElement(
+        ButtonToolbar,
+        null,
+        React.createElement(
+          Button,
+          { bsStyle: 'danger', onClick: this.edit },
+          'Edit'
+        ),
+        React.createElement(
+          Button,
+          { bsStyle: 'primary', onClick: this.delete },
+          'Delete'
+        )
+      )
+    );
+  }
+});
+
+var NotePanel = React.createClass({
+  displayName: 'NotePanel',
+
+  render: function render() {
+    var rows = [];
+    for (var i = 0; i < this.props.NoteProps.length; i++) {
+
+      rows.push(React.createElement(
+        Panel,
+        { header: this.props.NoteProps[i].Note, eventKey: i + 1 },
+        React.createElement(SingleAccordion, { key: i,
+          keyProp: i,
+          infoProp: this.props.NoteProps[i],
+          accordionDeleteProp: this.props.NoteDelete,
+          accordionEditProp: this.props.NoteEdit
+        })
+      ));
+    }
+    return React.createElement(
+      Accordion,
+      null,
+      rows
+    );
+  }
+});
+
+var App = React.createClass({
+  displayName: 'App',
+
+  getInitialState: function getInitialState() {
+    //localStorage.removeItem('_arinze_Note_box');
+    var data = [{
+      Note: "SlWiki Notes app",
+      ingredients: ["Uses local storage on computer.", "Built for everyone.", "Simplified]
+    }];
+    if (typeof Storage !== "undefined") {
+      if (localStorage.getItem("_arinze_Note_box")) {
+        data = JSON.parse(localStorage.getItem("_arinze_Note_box"));
+      } else {
+        localStorage.setItem("_arinze_Note_box", JSON.stringify(data));
+      }
+    }
+    return {
+      data: data,
+      showModal: false,
+      editProp: false,
+      NoteBoxVal: "",
+      ingredientBoxVal: "",
+      editKey: ''
+
+    };
+  },
+  handleButtonAdd: function handleButtonAdd(input) {
+    var curData = this.state.data;
+    curData.push(input);
+    if (typeof Storage !== "undefined") {
+
+      localStorage.setItem("_arinze_Note_box", JSON.stringify(curData));
+    }
+    this.setState({
+      data: curData
+    });
+  },
+  deleteNote: function deleteNote(key) {
+    var curr = this.state.data;
+    if (curr.length <= 1) {
+      curr = [];
+    } else {
+      curr = curr.splice(key, 1);
+    }
+    if (typeof Storage !== "undefined") {
+
+      localStorage.setItem("_arinze_Note_box", JSON.stringify(curr));
+    }
+
+    this.setState({ data: curr });
+  },
+  editNote: function editNote(key) {
+
+    this.setState({
+      showModal: true,
+      editProp: true,
+      NoteBoxVal: this.state.data[key].Note,
+      ingredientBoxVal: this.state.data[key].ingredients.join(','),
+      editKey: key
+
+    });
+  },
+  handleButtonEdit: function handleButtonEdit(input) {
+
+    var curData = this.state.data;
+    if (input != null) {
+
+      curData[this.state.editKey] = input;
+      if (typeof Storage !== "undefined") {
+
+        localStorage.setItem("_arinze_Note_box", JSON.stringify(curData));
+      }
+    }
+
+    this.setState({
+      data: curData,
+      showModal: false,
+      editProp: false,
+      NoteBoxVal: "",
+      ingredientBoxVal: ""
+
+    });
+  },
+
+  render: function render() {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        Well,
+        null,
+        React.createElement(NotePanel, { NoteProps: this.state.data, NoteDelete: this.deleteNote, NoteEdit: this.editNote })
+      ),
+      React.createElement(AdderButton, { buttonReturnValue: this.handleButtonAdd,
+        buttonEditValue: this.handleButtonEdit,
+        showModal: this.state.showModal,
+        NoteProp: this.state.NoteBoxVal,
+        ingredientProp: this.state.ingredientBoxVal,
+
+        editProp: this.state.editProp })
+    );
+  }
+
+});
+
+ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
+  </script>
+
+</body>
+</html>
