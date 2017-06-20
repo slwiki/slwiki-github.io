@@ -121,7 +121,7 @@ var AdderButton = React.createClass({
           React.createElement(
             Modal.Title,
             null,
-            this.props.editProp ? "Submit Changes" : "Add a Note"
+            this.props.editProp ? "Edit Note" : "Add a Note"
           )
         ),
         React.createElement(
@@ -143,7 +143,7 @@ var AdderButton = React.createClass({
             React.createElement(
               Button,
               { bsStyle: 'primary', onClick: this.handleSubmission },
-              this.props.editProp ? "Edit Note" : "Add Note"
+              this.props.editProp ? "Submit Changes" : "Add Note"
             ),
             React.createElement(
               Button,
