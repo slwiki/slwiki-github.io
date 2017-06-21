@@ -2,99 +2,983 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>GSAP / Fidget Spinner</title>
+  <title>Spinner</title>
 <style>
-  /* positionning */
-html,
+  * {
+  box-sizing: border-box;
+  user-select: none;
+}
+
+html {
+  overflow: hidden;
+  background: #f5f5f5 url(https://www.fidgetspin.xyz/assets/background.png);
+  font-family: 'Roboto', sans-serif;
+}
+
 body {
-    display:-webkit-box;
-    display:-ms-flexbox;
-    display:flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -ms-flex-line-pack: center;
-        align-content: center;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  touch-action: none;
 }
 
-/* add a cursor */
-#fidget-spinner {
-    cursor: move;
+.hidden {
+  display: none !important;
 }
 
-/* some colors */
-html,
-body {
-    background: #F6FEA1;
+#reload-prompt {
+  padding: 30px 30px;
+  box-shadow: 0px 7px 10px 0px rgba(0, 0, 0, 0.45);
+  border-bottom: 4px solid #c77d2f;
+  color: #424242;
+  text-shadow: 0px 2px 0px rgb(255, 255, 255);
+  background: #ffe98f;
+  border-radius: 8px;
+  z-index: 2;
+  transform: translateY(-50%) translateX(-50%);
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  width: 95%;
+  font-size: 21px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.circle {
-    fill:transparent;
-} 
+#spinner-picker {
+  background: hsla(0, 0%, 92%, 0.95);
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  left: 0;
+  padding: 20px;
+  margin: 0;
+  height: calc(100% - 80px);
+}
 
-.bearing {
-    fill: #F08E6B;
-} 
+#spinner-picker li {
+  display: block;
+  background: #fff;
+  box-shadow: 3px 5px 11px #d6d6d6;
+  border-radius: 13px;
+  margin-bottom: 20px;
+}
 
-.spinner {
-    fill:#FF7575;
+#spinner-picker .title {
+  margin: 0;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 0;
+  background: #ff4f75;
+  color: #fff;
+  font-size: 19px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-shadow: 0 -2px 2px #dc254c;
+  box-shadow: inset 0px 3px 0px rgba(255, 255, 255, 0.19);
+}
+
+#spinner-picker .locked {
+  filter: blur(14px) saturate(0%);
+}
+
+#spinner-picker li img {
+  max-width: 300px;
+  width: 100%;
+  margin: 20px;
+  margin-bottom: 0;
+}
+
+#spinner-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  width: 400px;
+  height: 400px;
+  display: flex;
+}
+
+#spinner {
+  will-change: transform;
+  flex: auto;
+}
+
+#trace-slow,
+#trace-fast {
+  opacity: 0.000001;
+  will-change: transform;
+}
+
+#spinner > img {
+  will-change: transform;
+}
+
+#trace-slow img,
+#trace-fast img {
+  opacity: 0.1;
+}
+
+.spinner-trace-1 {
+  transform: rotate(5deg);
+}
+
+.spinner-trace-2 {
+  transform: rotate(8deg);
+}
+
+.spinner-trace-3 {
+  transform: rotate(12deg);
+}
+
+.spinner-trace-4 {
+  transform: rotate(20deg);
+}
+
+.spinner-trace-5 {
+  transform: rotate(-20deg);
+}
+
+.spinner-trace-6 {
+  transform: rotate(-12deg);
+}
+
+.spinner-trace-7 {
+  transform: rotate(-8deg);
+}
+
+.spinner-trace-8 {
+  transform: rotate(-5deg);
+}
+
+#spinner img {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#footer {
+  background: #ff4f75;
+  will-change: transform;
+  position: absolute;
+  border-radius: 30px;
+  padding: 20px;
+  box-shadow: 0px -2px 6px 0px #e4c6c6;
+  color: #fff;
+  text-shadow: 0px 3px 0px rgba(219, 18, 96, 0.5);
+  text-align: center;
+  font-weight: bold;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.speed {
+  position: absolute;
+  right: 25px;
+  top: 17px;
+}
+
+#velocity {
+  font-weight: bold;
+  width: 90px;
+  display: inline-block;
+  text-align: right;
+  will-change: transform;
+}
+
+.velocity-display {
+  font-size: 25px;
+}
+
+.velocity-unit {
+  font-size: 55%;
+  display: inline-block;
+  margin-left: -4px;
+}
+
+.speed-icon {
+  height: 23px;
+  position: relative;
+  opacity: 0.3;
+  display: inline-block;
+  margin-left: 7px;
+  will-change: transform;
+}
+
+#header {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  color: #989898;
+}
+
+.max-velocity {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.max-velocity-unit {
+  display: inline-block;
+  font-size: 20px;
+}
+
+#maxVelocity {
+  font-size: 42px;
+  display: inline-block;
+}
+
+.spin-icon {
+  background: #ffe98f;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: relative;
+  border: solid 1px #f59f44;
+  box-shadow: 0px 2px 1px #da8c39, inset 1px 2px 0 rgba(255, 255, 255, 0.56);
+  margin-right: 10px;
+  will-change: transform;
+}
+
+.coin-lift {
+  background: #ffcb78;
+  width: 70%;
+  height: 70%;
+  border-radius: 100%;
+  top: 15%;
+  left: 15%;
+  position: relative;
+  box-shadow: inset 1px 2px 0 #f59f44;
+}
+
+.spin-img {
+  height: 61%;
+  top: 21%;
+  position: absolute;
+  left: 17%;
+}
+
+.spin-img-dark {
+  top: 16%;
+}
+
+.turns {
+  display: flex;
+  display: -webkit-flex;
+  align-items: baseline;
+  margin-left: 10px;
+}
+
+#turns {
+  font-weight: bold;
+  font-size: 25px;
+}
+.turns-text {
+  width: 150px;
+  will-change: transform;
+}
+
+.turns-unit {
+  margin-left: -1px;
+}
+
+.turns div {
+  display: inline-block;
+}
+
+.menu {
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+}
+
+#toggle-audio{
+  background-image: url(https://www.fidgetspin.xyz/assets/volume.svg);
+}
+
+#toggle-audio.muted {
+  background-image: url(https://www.fidgetspin.xyz/assets/mute.svg);
+}
+
+#picker {
+  background-image: url(https://www.fidgetspin.xyz/assets/picker.svg);
+}
+
+.menu-item {
+  height: 100%;
+  width: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+p.locked-info {
+  font-weight: bold;
+  text-align: center;
+  color: #FFEB3B;
+  margin-top: -10px;
+  background: black;
+  padding: 20px;
+  margin-bottom: 0px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  text-transform: uppercase;
+  font-size: 18px;
+  text-shadow: 1px 11px 6px rgba(255, 255, 255, 0.31);
+}
+.level{
+  font-weight: bold;
+  font-size: 25px;
 }
   </style>
-
   
 </head>
 
 <body>
-  <div id="wrapper">
-    <svg id="fidget-spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 338 338">
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="preload" as="image" href="https://www.fidgetspin.xyz/assets/spinners/base.png">
+    <link rel="preload" as="image" href="https://www.fidgetspin.xyz/assets/mute.svg">
+    <link rel="preload" as="image" href="https://www.fidgetspin.xyz/assets/volume.svg">
+    <link rel="manifest" href="https://www.fidgetspin.xyz/manifest.json">
+    <title>Fidget Spinner</title>
+  </head>
+  <body>
+    <div id="header">
+      <div class="turns">
+        <div class="spin-icon">
+          <div class="coin-lift">
+            <img class="spin-img spin-img-dark" alt="spin count icon" src="https://www.fidgetspin.xyz/assets/dark_rotate.svg">
+            <img class="spin-img" alt="spin count icon" src="https://www.fidgetspin.xyz/assets/rotate.svg">
+          </div>
+        </div>
+        <div class="turns-text">
+          <div class="level">Level</div>
+          <div id="turns">0</div>
+        </div>
+      </div>
+      <div class="speed">
+        <div class="velocity-display">
+          <div id="velocity">0</div>
+          
+          <div class="velocity-unit"> RPM</div>
+          <img class="speed-icon" alt="speed indicator icon" src="https://www.fidgetspin.xyz/assets/speed_icon.svg">
+        </div>
+      </div>
+    </div>
+    <div class="hidden" id="reload-prompt" onclick="window.location.reload(true)">Click For The Latest Version!</div>
+    <ul class="hidden" id="spinner-picker"></ul>
 
-<!--       <circle id="circle" class="circle" cx="169" cy="169" r="169"/> -->
+    <div id='spinner-container'>
+      <div id='spinner'>
+        <img alt="primary spinner" class="spinner" src='https://www.fidgetspin.xyz/assets/spinners/base.png'>
+        <div id='trace-slow'>
+          <img alt="spinner" class='spinner spinner-trace-1' src='https://www.fidgetspin.xyz/assets/spinners/base.png'>
+          <img alt="spinner" class='spinner spinner-trace-2' src='https://www.fidgetspin.xyz/assets/spinners/base.png'>
+          <img alt="spinner" class='spinner spinner-trace-5' src='https://www.fidgetspin.xyz/assets/spinners/base.png'>
+          <img alt="spinner" class='spinner spinner-trace-6' src='https://www.fidgetspin.xyz/assets/spinners/base.png'>
+        </div>
+        <div id='trace-fast'>
+          <img alt="spinner" class='spinner spinner-trace-3' src='https://www.fidgetspin.xyz/assets/spinners/base.png'>
+          <img alt="spinner" class='spinner spinner-trace-4' src='https://www.fidgetspin.xyz/assets/spinners/base.png'>
+          <img alt="spinner" class='spinner spinner-trace-7' src='https://www.fidgetspin.xyz/assets/spinners/base.png'>
+          <img alt="spinner" class='spinner spinner-trace-8' src='https://www.fidgetspin.xyz/assets/spinners/base.png'>
+        </div>
+      </div>
+    </div>
 
-        <g id="fidget-spinner--element">
-        <path class="bearing" d="M161.6 84.2c2.3.5 4.7.9 7.1.9 2.4 0 4.8-.3 7.2-.9 3.2-.7 6.2-1.9 9-3.5 7.5-4.3 12.8-11.3 15.1-19.7 2.2-8.4 1.1-17.1-3.3-24.6-5.8-10-16.5-16.2-28.1-16.2-5.7 0-11.3 1.5-16.2 4.4-15.5 9-20.7 28.8-11.8 44.3 4.6 7.8 12.3 13.3 21 15.3zm-2-47.2c2.8-1.6 5.9-2.4 9.1-2.4 6.4 0 12.4 3.5 15.7 9 2.4 4.2 3.1 9.1 1.8 13.7-1.2 4.7-4.2 8.6-8.4 11-.6.4-1.2.7-1.9.9-2.3 1-4.7 1.5-7.2 1.5s-4.9-.5-7.2-1.5c-3.5-1.5-6.5-4.1-8.5-7.5-5-8.6-2-19.7 6.6-24.7z"/>
-        <path class="bearing" d="M96.3 211.1c-1.2-2.1-2.7-4-4.3-5.8-6.1-6.5-14.6-10.4-23.7-10.4-5.7 0-11.3 1.5-16.2 4.4-7.5 4.3-12.8 11.3-15.1 19.7-2.2 8.4-1.1 17.1 3.3 24.6 5.8 10 16.5 16.2 28.1 16.2 5.7 0 11.3-1.5 16.2-4.4 7.5-4.3 12.8-11.3 15.1-19.7 1.6-6 1.4-12.2-.4-18-.9-2.3-1.8-4.5-3-6.6zM85.7 232c-1.2 4.7-4.2 8.6-8.4 11-2.8 1.6-5.9 2.4-9.1 2.4-6.4 0-12.4-3.5-15.7-9-2.4-4.2-3.1-9-1.8-13.7 1.2-4.7 4.2-8.6 8.4-11 2.8-1.6 5.9-2.4 9.1-2.4 3.9 0 7.7 1.3 10.8 3.6 2 1.4 3.6 3.3 4.9 5.4 1.3 2.2 2 4.5 2.3 6.9.2 2.3.1 4.6-.5 6.8z"/>
-        <path class="bearing" d="M269.8 194.6c-5.7 0-11.3 1.5-16.2 4.4-2.9 1.7-5.4 3.7-7.6 6.1-3.3 3.5-5.7 7.8-7.1 12.4-.1.4-.3.8-.4 1.2-2.2 8.4-1.1 17.1 3.3 24.6 5.8 10 16.5 16.1 28.1 16.1 5.7 0 11.3-1.5 16.2-4.4 7.5-4.3 12.8-11.3 15.1-19.7 2.2-8.4 1.1-17.1-3.3-24.6-5.8-10-16.6-16.1-28.1-16.1zm17.5 37c-1.2 4.7-4.2 8.6-8.4 11-2.8 1.6-5.9 2.4-9.1 2.4-6.4 0-12.4-3.5-15.7-9-2-3.4-2.7-7.3-2.3-11.1.1-.9.2-1.8.4-2.6 1.1-4 3.5-7.4 6.7-9.8.6-.4 1.1-.9 1.7-1.2 2.8-1.6 5.9-2.4 9.1-2.4 6.4 0 12.4 3.5 15.7 9 2.5 4.2 3.1 9.1 1.9 13.7z"/>
-        <path class="bearing middle-bearing" d="M203.2 178.1c2.4-9.2 1.2-18.7-3.6-26.9-5.3-9.1-14.3-15.3-24.8-17.1-2.3-.4-4.2-.6-5.9-.6-1.7 0-3.7.2-6 .6-4.3.7-8.3 2.2-11.8 4.2-15 8.7-21.5 26.8-15.4 43.1.8 2.1 1.6 3.8 2.5 5.4.9 1.5 2 3.1 3.5 4.9 6.8 8.2 16.8 12.8 27.3 12.8 6.2 0 12.4-1.7 17.8-4.8 3.6-2.1 6.8-4.8 9.6-8.1 2.6-3.1 4.6-6.6 5.9-10.3.3-1.1.6-2.1.9-3.2z"/>
-        <path class="spinner" d="M312.4 202.3c-6.7-11.6-17.9-19.8-30.7-23-.5-.1-47-10.3-63.5-38.8-16.6-28.6-2.3-74-2.2-74.4.1-.2.2-.5.2-.7 3.4-12.7 1.6-26-5-37.4-8.8-15.1-25.1-24.5-42.6-24.5-8.6 0-17.2 2.3-24.7 6.7-20.8 12-29.4 37-21.7 58.9 2.8 10.2 11.5 47-2.7 71.7-16.5 28.6-62.9 38.9-63.4 39v.1c-4.4 1.1-8.6 2.8-12.6 5.1-11.4 6.4-19.5 17-22.9 29.7-3.4 12.7-1.6 26 5 37.3 8.8 15.1 25.1 24.5 42.6 24.5 8.6 0 17.2-2.3 24.7-6.7 5.3-3.1 9.8-7 13.5-11.6 8.7-8.6 35.2-32.4 62.5-32.4 33 0 65.1 35.1 65.5 35.5l.2-.2c9.2 9.4 21.9 14.9 35.3 14.9 8.6 0 17.2-2.3 24.7-6.7 23.4-13.3 31.4-43.5 17.8-67zM151.2 22.4c5.3-3.1 11.4-4.7 17.5-4.7 12.4 0 24 6.7 30.2 17.4 4.7 8.1 5.9 17.5 3.5 26.5-2.4 9-8.2 16.6-16.2 21.2-3.2 1.9-6.7 3.1-10.3 3.9-2.4.5-4.8.8-7.2.8s-4.8-.3-7.1-.8c-9.6-2-18.1-8-23.1-16.6-1-1.8-1.9-3.7-2.6-5.5-.4-1-.6-1.9-.9-2.9-4-14.9 2.2-31.2 16.2-39.3zM102 236.3c-1.2 4.5-3.2 8.6-5.9 12.2-.9 1.2-2 2.4-3.1 3.5-2.1 2.1-4.5 4-7.2 5.6-5.3 3.1-11.4 4.7-17.5 4.7-12.4 0-24-6.7-30.2-17.4-4.7-8.1-5.9-17.5-3.5-26.5 2.4-9 8.2-16.6 16.2-21.2 5.3-3.1 11.4-4.7 17.5-4.7 10 0 19.4 4.4 25.9 11.6 1.6 1.8 3.1 3.7 4.3 5.8 1.2 2.1 2.2 4.3 2.9 6.6 2.1 6.3 2.3 13.2.6 19.8zm66.9-24.6c-12.8 0-24.7-5.8-32.8-15.4-1.5-1.8-3-3.8-4.2-5.8-1.2-2.1-2.2-4.3-3-6.5-7.1-19.1.3-41.2 18.5-51.8 4.4-2.5 9.2-4.2 14.2-5.1 2.4-.4 4.8-.7 7.2-.7 2.4 0 4.8.3 7.1.7 12.4 2.1 23.4 9.6 29.8 20.6 5.7 9.9 7.3 21.4 4.3 32.4-.3 1.3-.8 2.5-1.2 3.8-1.7 4.6-4.1 8.7-7.2 12.4-3.2 3.8-7 7.2-11.5 9.8-6.3 3.6-13.7 5.6-21.2 5.6zm118.4 45.5c-5.3 3.1-11.4 4.7-17.5 4.7-12.4 0-24-6.7-30.2-17.4-4.7-8.1-5.9-17.5-3.5-26.5l.6-1.8c1.5-4.6 3.9-8.9 7.1-12.4 2.4-2.7 5.3-5.1 8.5-7 5.3-3.1 11.4-4.7 17.5-4.7 12.4 0 24 6.7 30.2 17.4 9.7 16.6 4 38-12.7 47.7z"/>
-      </g>
-    </svg><!-- svg source: https://thenounproject.com/term/fidget-spinner/1077097/ -->
-</div>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
-<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ThrowPropsPlugin.min.js'></script>
-<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/Draggable-latest-beta.js?r=57'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js'></script>
 
+    <div id="footer">
+      <div class="menu">
+        <div class="menu-item" id="toggle-audio"></div>
+        <div class="max-velocity">
+          <div class="max-velocity-unit">MAX RPM</div>
+          <div id="maxVelocity">0</div>
+        </div>
+        <div class="menu-item" id="picker"></div>
+      </div>
+    </div>
+    
+  </body>
+</html>
+  
     <script>
-  var winWidth = $(window).width(),
-    winHeight = $(window).height(),
-    wrapper = $("#wrapper"),
-    spinner = $("#fidget-spinner");
+  var f = "function" == typeof Object.defineProperties ? Object.defineProperty : function(a, b, c) {
+        a != Array.prototype && a != Object.prototype && (a[b] = c.value)
+    },
+    h = "undefined" != typeof window && window === this ? this : "undefined" != typeof global && null != global ? global : this;
 
-// resize it
-wrapper.width(winWidth/2);
-wrapper.height(winWidth/2);
+function k() {
+    k = function() {};
+    h.Symbol || (h.Symbol = aa)
+}
+var ba = 0;
 
-// spin it
-Draggable.create(spinner, {
-    type: "rotation", 
-    throwProps: true,
-    minDuration: 5,
-    maxDuration: 30,
-    throwResistance: 100,
-    overshootTolerance: 1
+function aa(a) {
+    return "jscomp_symbol_" + (a || "") + ba++
+}
+
+function l() {
+    k();
+    var a = h.Symbol.iterator;
+    a || (a = h.Symbol.iterator = h.Symbol("iterator"));
+    "function" != typeof Array.prototype[a] && f(Array.prototype, a, {
+        configurable: !0,
+        writable: !0,
+        value: function() {
+            return m(this)
+        }
+    });
+    l = function() {}
+}
+
+function m(a) {
+    var b = 0;
+    return ca(function() {
+        return b < a.length ? {
+            done: !1,
+            value: a[b++]
+        } : {
+            done: !0
+        }
+    })
+}
+
+function ca(a) {
+    l();
+    a = {
+        next: a
+    };
+    a[h.Symbol.iterator] = function() {
+        return this
+    };
+    return a
+}
+
+function p(a) {
+    l();
+    k();
+    l();
+    var b = a[Symbol.iterator];
+    return b ? b.call(a) : m(a)
+}
+for (var r = h, t = ["Promise"], u = 0; u < t.length - 1; u++) {
+    var v = t[u];
+    v in r || (r[v] = {});
+    r = r[v]
+}
+var w = t[t.length - 1],
+    x = r[w],
+    y = function() {
+        function a(a) {
+            this.b = 0;
+            this.i = void 0;
+            this.a = [];
+            var d = this.f();
+            try {
+                a(d.resolve, d.reject)
+            } catch (n) {
+                d.reject(n)
+            }
+        }
+
+        function b() {
+            this.a = null
+        }
+
+        function c(d) {
+            return d instanceof a ? d : new a(function(a) {
+                a(d)
+            })
+        }
+        if (x) return x;
+        b.prototype.b = function(a) {
+            this.a || (this.a = [], this.h());
+            this.a.push(a)
+        };
+        b.prototype.h = function() {
+            var a = this;
+            this.f(function() {
+                a.o()
+            })
+        };
+        var g = h.setTimeout;
+        b.prototype.f = function(a) {
+            g(a, 0)
+        };
+        b.prototype.o = function() {
+            for (; this.a && this.a.length;) {
+                var a = this.a;
+                this.a = [];
+                for (var b = 0; b < a.length; ++b) {
+                    var c = a[b];
+                    delete a[b];
+                    try {
+                        c()
+                    } catch (I) {
+                        this.i(I)
+                    }
+                }
+            }
+            this.a = null
+        };
+        b.prototype.i = function(a) {
+            this.f(function() {
+                throw a;
+            })
+        };
+        a.prototype.f = function() {
+            function a(a) {
+                return function(d) {
+                    c || (c = !0, a.call(b, d))
+                }
+            }
+            var b = this,
+                c = !1;
+            return {
+                resolve: a(this.F),
+                reject: a(this.h)
+            }
+        };
+        a.prototype.F = function(b) {
+            if (b === this) this.h(new TypeError("A Promise cannot resolve to itself"));
+            else if (b instanceof a) this.G(b);
+            else {
+                a: switch (typeof b) {
+                    case "object":
+                        var d = null != b;
+                        break a;
+                    case "function":
+                        d = !0;
+                        break a;
+                    default:
+                        d = !1
+                }
+                d ? this.D(b) : this.o(b)
+            }
+        };
+        a.prototype.D = function(a) {
+            var b = void 0;
+            try {
+                b = a.then
+            } catch (n) {
+                this.h(n);
+                return
+            }
+            "function" == typeof b ? this.H(b, a) : this.o(a)
+        };
+        a.prototype.h = function(a) {
+            this.v(2, a)
+        };
+        a.prototype.o = function(a) {
+            this.v(1, a)
+        };
+        a.prototype.v = function(a, b) {
+            if (0 != this.b) throw Error("Cannot settle(" + a + ", " + b | "): Promise already settled in state" + this.b);
+            this.b = a;
+            this.i = b;
+            this.C()
+        };
+        a.prototype.C = function() {
+            if (this.a) {
+                for (var a = this.a, b = 0; b < a.length; ++b) a[b].call(), a[b] = null;
+                this.a =
+                    null
+            }
+        };
+        var e = new b;
+        a.prototype.G = function(a) {
+            var b = this.f();
+            a.m(b.resolve, b.reject)
+        };
+        a.prototype.H = function(a, b) {
+            var d = this.f();
+            try {
+                a.call(b, d.resolve, d.reject)
+            } catch (I) {
+                d.reject(I)
+            }
+        };
+        a.prototype.then = function(b, c) {
+            function d(a, b) {
+                return "function" == typeof a ? function(b) {
+                    try {
+                        e(a(b))
+                    } catch (ga) {
+                        g(ga)
+                    }
+                } : b
+            }
+            var e, g, q = new a(function(a, b) {
+                e = a;
+                g = b
+            });
+            this.m(d(b, e), d(c, g));
+            return q
+        };
+        a.prototype.catch = function(a) {
+            return this.then(void 0, a)
+        };
+        a.prototype.m = function(a, b) {
+            function d() {
+                switch (c.b) {
+                    case 1:
+                        a(c.i);
+                        break;
+                    case 2:
+                        b(c.i);
+                        break;
+                    default:
+                        throw Error("Unexpected state: " + c.b);
+                }
+            }
+            var c = this;
+            this.a ? this.a.push(function() {
+                e.b(d)
+            }) : e.b(d)
+        };
+        a.resolve = c;
+        a.reject = function(b) {
+            return new a(function(a, c) {
+                c(b)
+            })
+        };
+        a.race = function(b) {
+            return new a(function(a, d) {
+                for (var e = p(b), g = e.next(); !g.done; g = e.next()) c(g.value).m(a, d)
+            })
+        };
+        a.all = function(b) {
+            var d = p(b),
+                e = d.next();
+            return e.done ? c([]) : new a(function(a, b) {
+                function g(b) {
+                    return function(c) {
+                        q[b] = c;
+                        n--;
+                        n || a(q)
+                    }
+                }
+                var q = [],
+                    n = 0;
+                do q.push(void 0), n++, c(e.value).m(g(q.length - 1),
+                    b), e = d.next(); while (!e.done)
+            })
+        };
+        return a
+    }();
+y != x && null != y && f(r, w, {
+    configurable: !0,
+    writable: !0,
+    value: y
 });
+"serviceWorker" in navigator && (navigator.serviceWorker.register("https://www.fidgetspin.xyz/sw.js").then(function() {
+    console.log("service worker is is all cool.")
+}).catch(function(a) {
+    console.error("service worker is not so cool.", a);
+    throw a;
+}), navigator.serviceWorker.controller && (navigator.serviceWorker.controller.onstatechange = function(a) {
+    "redundant" === a.target.state && document.querySelector("#reload-prompt").classList.remove("hidden")
+}));
+var z = "onpointerdown" in document.createElement("div"),
+    A = 0,
+    B = new("undefined" !== typeof webkitAudioContext ? webkitAudioContext : AudioContext),
+    C = B.createGain();
+C.connect(B.destination);
+var D = {
+        c: !1,
+        B: window.localStorage.getItem("fidget_spinner") || "https://www.fidgetspin.xyz/assets/spinners/base.png",
+        muted: "true" === window.localStorage.getItem("fidget_muted") ? !0 : !1,
+        l: window.localStorage.getItem("fidget_spins") ? parseInt(window.localStorage.getItem("fidget_spins"), 10) : 0,
+        j: window.localStorage.getItem("fidget_max_velocity") ? parseInt(window.localStorage.getItem("fidget_max_velocity"), 10) : 0
+    },
+    da = [{
+        path: "https://www.fidgetspin.xyz/assets/spinners/base.png",
+        name: "The Classic",
+        g: 0
+    }, {
+        path: "https://www.fidgetspin.xyz/assets/spinners/triple.png",
+        name: "The Triple",
+        g: 500
+    }, {
+        path: "https://www.fidgetspin.xyz/assets/spinners/pokeball.png",
+        name: "The 'Chu",
+        g: 2E3
+    }, {
+        path: "https://dzungcao.com/assets/star.png",
+        name: "The Cubist",
+        g: 5E3
+    }, {
+        path: "https://www.fidgetspin.xyz/assets/spinners/fractal.png",
+        name: "The Fractal",
+        g: 1E4
+    }],
+    ea = document.getElementById("turns"),
+    fa = document.getElementById("velocity"),
+    ha = document.getElementById("maxVelocity"),
+    E = document.getElementById("spinner"),
+    ia = document.getElementById("trace-slow"),
+    ja = document.getElementById("trace-fast"),
+    F = document.getElementById("toggle-audio"),
+    ka = Array.from(document.getElementsByClassName("spinner")),
+    la = document.getElementById("picker"),
+    G = document.getElementById("spinner-picker"),
+    H = 0,
+    J = 0;
+
+function K(a) {
+    "undefined" !== typeof requestIdleCallback ? requestIdleCallback(a, {
+        timeout: 60
+    }) : "undefined" !== typeof requestAnimationFrame ? requestAnimationFrame(a) : setTimeout(a, 16.66)
+}
+
+function ma() {
+    A = Math.abs(3600 * J / 2 / Math.PI) | 0;
+    var a = Math.max(A, D.j);
+    D.j !== a && (K(function() {
+        return window.localStorage.setItem("fidget_max_velocity", "" + D.j)
+    }), D.j = a);
+    D.l += Math.abs(J / 2 / Math.PI);
+    K(function() {
+        return window.localStorage.setItem("fidget_spins", "" + D.l)
+    });
+    a = D.j.toLocaleString(void 0, {
+        maximumFractionDigits: 1
+    });
+    ea.textContent = "" + D.l.toLocaleString(void 0, {
+        maximumFractionDigits: 0
+    });
+    fa.textContent = "" + A;
+    ha.textContent = "" + a
+}
+var L = E.getBoundingClientRect(),
+    na = L.left + L.width / 2,
+    oa = L.top + L.height / 2,
+    M = L.width / 10,
+    N = 0,
+    O = 0,
+    P = !1,
+    Q = 0,
+    R = 0;
+
+function S(a) {
+    return {
+        x: ("touches" in a ? a.touches[0].clientX : a.clientX) - na,
+        y: ("touches" in a ? a.touches[0].clientY : a.clientY) - oa
+    }
+}
+
+function pa(a) {
+    if (!D.c) {
+        var b = S(a),
+            c = b.x,
+            b = b.y;
+        T(a);
+        P = !0;
+        O = Math.sqrt(Math.pow(c, 2) + Math.pow(b, 2));
+        R = N
+    }
+}
+
+function T(a) {
+    if (!D.c) {
+        var b = S(a);
+        N = Math.atan2(b.x, b.y);
+        a.preventDefault()
+    }
+}
+
+function U() {
+    D.c || (P = !1)
+}
+
+function V() {
+    requestAnimationFrame(function() {
+        P ? O > M && (Q = N - R, Q < -Math.PI && (Q += 2 * Math.PI), Q > Math.PI && (Q -= 2 * Math.PI), J = Q, R = N) : Q && (J = Q * O / M, Q = 0);
+        H -= J;
+        E.style.transform = "rotate(" + H + "rad)";
+        ia.style.opacity = .2 < Math.abs(J) ? "1" : "0.00001";
+        ja.style.opacity = .4 < Math.abs(J) ? "1" : "0.00001";
+        ma();
+        J *= .99;
+        J = Math.sign(J) * Math.max(0, Math.abs(J) - 2E-4);
+        var a = Math.abs(A * Math.PI / 60);
+        if (a && !P) {
+            var b = a,
+                c = B.currentTime,
+                g = b,
+                b = Math.min(1, b / 10);
+            if (!(c + (b * (2 - b) * 1.1 - (.6 - .6 * b * (2 - b))) - b * (2 - b) < W)) {
+                var e = B.createOscillator(),
+                    d = B.createGain(),
+                    b = Math.min(1, Math.max(0, b));
+                e.type = "triangle";
+                e.connect(d);
+                d.connect(C);
+                g = qa(g);
+                b = .1 * (1 - b / 2);
+                e.frequency.setValueAtTime(g, c);
+                e.frequency.linearRampToValueAtTime(1.8 * g, c += b);
+                W = c + b;
+                d.gain.setValueAtTime(.1, B.currentTime);
+                d.gain.linearRampToValueAtTime(0, W);
+                e.start(B.currentTime);
+                e.stop(W)
+            }
+            d = a;
+            a = B.currentTime;
+            b = d;
+            d = Math.min(1, d / 10);
+            a + (d * (2 - d) * 1.1 - (.3 - .3 * d * (2 - d))) - d * (2 - d) < X || (c = B.createOscillator(), e = B.createGain(), d = Math.min(1, Math.max(0, d)), c.type = "sine", c.connect(e), e.connect(C), b = ra(b), d = .05 * (1 - d /
+                2), c.frequency.setValueAtTime(b, a), c.frequency.linearRampToValueAtTime(1.8 * b, a += d), X = a + d, e.gain.setValueAtTime(.15, B.currentTime), e.gain.linearRampToValueAtTime(0, X), c.start(B.currentTime), c.stop(X))
+        }
+        V()
+    })
+}
+var W = -1,
+    X = -1;
+
+function Y(a) {
+    return function(b) {
+        return a.u + (b - a.s) / (a.w - a.s) * (a.A - a.u)
+    }
+}
+var qa = Y({
+        s: 0,
+        w: 80,
+        u: 400,
+        A: 2E3
+    }),
+    ra = Y({
+        s: 0,
+        w: 80,
+        u: 300,
+        A: 1500
+    });
+
+function sa() {
+    function a() {
+        var b = B.createBufferSource();
+        b.buffer = B.createBuffer(1, 1, 22050);
+        b.connect(B.destination);
+        "undefined" === typeof b.start ? b.noteOn(0) : b.start(0);
+        b.onended = function() {
+            b.disconnect(0);
+            document.removeEventListener("touchend", a, !0)
+        }
+    }
+    document.addEventListener("touchend", a, !0)
+}
+
+function Z() {
+    F.classList.toggle("muted", D.muted);
+    C.gain.setValueAtTime(D.muted ? 0 : 1, B.currentTime);
+    window.localStorage.setItem("fidget_muted", "" + D.muted)
+}
+
+function ta() {
+    !0 !== D.c ? (D.c = !D.c, history.pushState(D, "", "#picker"), ua()) : history.back()
+}
+
+function va(a) {
+    D.muted = !D.muted;
+    Z();
+    a.stopPropagation()
+}
+
+function wa(a) {
+    D.B = a;
+    K(function() {
+        return window.localStorage.setItem("fidget_spinner", a)
+    });
+    for (var b = p(ka), c = b.next(); !c.done; c = b.next()) c.value.src = a
+}
+
+function xa(a) {
+    var b = a.target;
+    "IMG" !== b.tagName || b.classList.contains("locked") || (wa(a.target.src), ta())
+}
+
+function ua() {
+        for (var a = G.innerHTML = "", b = p(da), c = b.next(); !c.done; c = b.next()) c = c.value, a += '<li><p class="title">' + c.name + "</p>", a = c.g > D.l ? a + ('<img width="300" height="300" class="locked" src="' + c.path + '"><p class="locked-info">Unlocks at ' + c.g + " spins</p>") : a + ('<img width="300" height="300" src="' + c.path + '">'), a += "</li>";
+        G.innerHTML = a;
+        G.classList.remove("hidden");
+        G.scrollTop = 0
+    }
+    (function(a) {
+        function b(b) {
+            return a.next(b)
+        }
+
+        function c(b) {
+            return a.throw(b)
+        }
+        return new Promise(function(g, e) {
+            function d(a) {
+                a.done ? g(a.value) : Promise.resolve(a.value).then(b, c).then(d, e)
+            }
+            d(a.next())
+        })
+    })(function() {
+        function a() {
+            for (;;) switch (b) {
+                case 0:
+                    Z(), sa(), V(), c = document.addEventListener, la.addEventListener(z ? "pointerdown" : "touchstart", ta), G.addEventListener("click", xa), F.addEventListener(z ? "pointerdown" : "touchstart", va), c(z ? "pointerdown" : "touchstart", pa, {
+                        passive: !1
+                    }), c(z ? "pointermove" : "touchmove",
+                        T, {
+                            passive: !1
+                        }), c(z ? "pointerup" : "touchend", U), c(z ? "pointercancel" : "touchcancel", U), history.replaceState(null, "", "/"), wa(D.B), window.onpopstate = function(a) {
+                        null === a.state ? (D.c = !1, G.classList.add("hidden")) : null !== a.state && (D.c = !0, ua())
+                    }, b = -1;
+                default:
+                    return {
+                        value: void 0,
+                        done: !0
+                    }
+            }
+        }
+        var b = 0,
+            c, g = {
+                next: function() {
+                    return a()
+                },
+                throw: function() {
+                    return a()
+                },
+                return: function() {
+                    throw Error("Not yet implemented");
+                }
+            };
+        l();
+        g[Symbol.iterator] = function() {
+            return this
+        };
+        return g
+    }());
   </script>
 
 </body>
