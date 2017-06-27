@@ -214,6 +214,54 @@ height: 250px;
 </head>
 
 <body>
+	<svg style="display:block; margin: 0 auto;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" viewBox="0 0 300 150">
+	<defs>
+		<g id="feather">
+			<path d="M150,150 l-30,-100 a30,30 0 0,1 60,0 Z" fill="#2e589b" style="fill-opacity: 0.85;"></path>
+		</g>
+		<g id="crown">
+			<path d="M150,75 l-1.25,-6 a1.25,1.25 0 0,1 2.5,0 Z" fill="#fff"></path>
+		</g>
+	</defs>
+
+	<use xlink:href="#feather" x="0" y="0"></use>
+	<use xlink:href="#feather" x="0" y="0" transform="rotate(22.5028 150 150)">
+		<animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" from="23,150,150" to="20,150,150" dur="1s" begin="0s;anim2.end"></animateTransform>
+		<animateTransform id="anim2" attributeName="transform" attributeType="XML" type="rotate" from="20,150,150" to="23,150,150" dur="1s" begin="anim1.end"></animateTransform>
+	</use>
+	<use xlink:href="#feather" x="0" y="0" transform="rotate(45.0055 150 150)">
+		<animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" from="46,150,150" to="40,150,150" dur="1s" begin="0s;anim2.end"></animateTransform>
+		<animateTransform id="anim2" attributeName="transform" attributeType="XML" type="rotate" from="40,150,150" to="46,150,150" dur="1s" begin="anim1.end"></animateTransform>
+	</use>
+	<use xlink:href="#feather" x="0" y="0" transform="rotate(67.5083 150 150)">
+		<animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" from="69,150,150" to="60,150,150" dur="1s" begin="0s;anim2.end"></animateTransform>
+		<animateTransform id="anim2" attributeName="transform" attributeType="XML" type="rotate" from="60,150,150" to="69,150,150" dur="1s" begin="anim1.end"></animateTransform>
+	</use>
+	<use xlink:href="#feather" x="0" y="0" transform="rotate(-22.5028 150 150)">
+		<animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" from="-23,150,150" to="-20,150,150" dur="1s" begin="0s;anim2.end"></animateTransform>
+		<animateTransform id="anim2" attributeName="transform" attributeType="XML" type="rotate" from="-20,150,150" to="-23,150,150" dur="1s" begin="anim1.end"></animateTransform>
+	</use>
+	<use xlink:href="#feather" x="0" y="0" transform="rotate(-45.0055 150 150)">
+		<animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" from="-46,150,150" to="-40,150,150" dur="1s" begin="0s;anim2.end"></animateTransform>
+		<animateTransform id="anim2" attributeName="transform" attributeType="XML" type="rotate" from="-40,150,150" to="-46,150,150" dur="1s" begin="anim1.end"></animateTransform>
+	</use>
+	<use xlink:href="#feather" x="0" y="0" transform="rotate(-67.5083 150 150)">
+		<animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" from="-69,150,150" to="-60,150,150" dur="1s" begin="0s;anim2.end"></animateTransform>
+		<animateTransform id="anim2" attributeName="transform" attributeType="XML" type="rotate" from="-60,150,150" to="-69,150,150" dur="1s" begin="anim1.end"></animateTransform>
+	</use>
+
+	<g transform="rotate(-47.4861 150 75)">
+		<use xlink:href="#crown" x="0" y="0"></use>
+		<use xlink:href="#crown" x="0" y="0" transform="translate(1, 0) rotate(30,150,75)"></use>
+		<use xlink:href="#crown" x="0" y="0" transform="translate(-1, 0) rotate(-30,150,75)"></use>
+		<animateTransform id="anim1" attributeName="transform" attributeType="XML" type="rotate" from="-45,150,75" to="-60,150,75" dur="1s" begin="0s;anim2.end"></animateTransform>
+		<animateTransform id="anim2" attributeName="transform" attributeType="XML" type="rotate" from="-60,150,75" to="-45,150,75" dur="1s" begin="anim1.end"></animateTransform>
+	</g>
+
+	<g>
+		<path d="M105,145 c60,-10 10,-95 40,-80 l5,0 c-30,5 45,40 0,110 M139,66 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0" fill="#fff" fill-rule="evenodd" transform="translate(0, 5) rotate(10,105,145)"></path>
+	</g>
+</svg>
 	<img src="https://www.pentairpool.com/Assets/Websites/Pool/img/pentair_logo.svg" height="42" width="100%">
 	<p class="slwiki">SLWiki Tool Built by Sim </p>
 <script>
