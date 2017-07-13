@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+
+<style>
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  background: #fff;
+  font: 24px/1.15 'Open Sans', Helvetica, Arial, sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  min-height: 100%;
+  height: 100%;
+}
+body {
+  background-color: #663faa;
+  background: -ms-linear-gradient(top left, #663faa 0%, #585fd5 100%);
+  background: -webkit-linear-gradient(top left, #663faa, #585fd5);
+  background: -o-linear-gradient(top left, #663faa, #585fd5);
+  background: -moz-linear-gradient(top left, #663faa, #585fd5);
+  background: linear-gradient(top left, #663faa, #585fd5);
+  background-size: 150%;
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  padding: 100px;
+}
+/* list */
+.items {
+  display: table;
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 3px;
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1);
+  margin: 0;
+}
+.items__header {
+  display: table-row;
+  background-color: rgba(255,255,255,0.2);
+  list-style: none;
+  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.1);
+  margin: 0;
+}
+.items__header--action {
+  text-align: right;
+}
+.items__header > li {
+  display: table-cell;
+  color: #fff;
+  vertical-align: middle;
+  padding: 25px 15px;
+}
+.items__header > li > h3 {
+  font-size: 18px;
+  font-weight: 400;
+}
+.items__content {
+  display: table-row;
+  background-color: rgba(255,255,255,0.1);
+  list-style: none;
+  margin: 0;
+}
+.items__content--action {
+  text-align: right;
+}
+.items__content > li {
+  display: table-cell;
+  color: #fff;
+  vertical-align: middle;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding: 15px;
+}
+.items__content > li > button {
+  display: inline-block;
+  background: none;
+  border: 1px solid #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+.items__content > li > button > span {
+  display: block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='#fff'%3E%3Cpath d='M103.62,208.38A47.62,47.62,0,1,0,151.24,256,47.67,47.67,0,0,0,103.62,208.38Z'/%3E%3Cpath d='M256,208.38A47.62,47.62,0,1,0,303.62,256,47.67,47.67,0,0,0,256,208.38Z'/%3E%3Cpath d='M360.76,256a47.62,47.62,0,1,0,47.62-47.62A47.67,47.67,0,0,0,360.76,256Z'/%3E%3C/svg%3E");
+  width: 26px;
+  height: 26px;
+  text-indent: -999em;
+  overflow: hidden;
+  margin: 0 auto;
+}
+.cell__header,
+.list__header {
+  list-style: none;
+  margin: 0;
+}
+.cell__header > li > h3,
+.list__header > li > h3 {
+  font-size: 18px;
+}
+.cell__content,
+.list__content {
+  list-style: none;
+  margin: 0;
+}
+
+  </style>
+
+  
+</head>
+
+<body>
+<div class="items">
+  <ul class="items__header">
+    <li>
+      <h3>SL Compatibility</h3>
+    </li>
+
+    <li class="items__header--action"></li>
+  </ul>
+  <ul class="items__content">
+    <li>All EasyTouch</li>
+    <li class="items__content--action">
+      <button><span>Action</span></button>
+    </li>
+  </ul>
+  <ul class="items__content">
+    <li>All Intellitouch</li>
+    <li class="items__content--action">
+      <button><span>Action</span></button>
+    </li>
+  </ul>
+  <div class="items__content">
+    <li>IntelliFlo VF, VS and VSF Only.</li>
+ 
+    <li class="items__content--action">
+      <button><span>Action</span></button>
+    </li>
+  </div>
+</div>
+
+
+
+  
+  
+</body>
+</html>
