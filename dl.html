@@ -37,6 +37,9 @@ h2 {
   margin: 40px 8px 10px 8px; 
   color: #cccccc;
 }
+  h1 {
+  color: #a50202;
+}
 
 
 
@@ -278,7 +281,6 @@ input[type=text]:placeholder {
 
   
 </head>
-
 <body>
   <div class="wrapper fadeInDown">
   <div id="formContent">
@@ -372,7 +374,7 @@ var passwordModule = {
     }
 
     if(sentPassword === "undefined" || sentPassword === "") {
-      this.errorBox.text("Please enter a password").show();
+      this.errorBox.text("Please enter login key").show();
     } else {
       this.errorBox.text("Incorrect Login Key").show();
     }
