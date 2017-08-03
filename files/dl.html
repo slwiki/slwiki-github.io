@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Pentair Tech Support</title>
+  
+
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Poppins');
+
+/* BASIC */
+
+html {
+  background-color: #56baed;
+   overflow:hidden;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+}
+
+a {
+  color: #92badd;
+  display:inline-block;
+  text-decoration: none;
+  font-weight: 400;
+}
+.passwordError{
+  color: #a50202;
+}
+  
+h2 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display:inline-block;
+  margin: 40px 8px 10px 8px; 
+  color: #cccccc;
+}
+  h1 {
+  color: #a50202;
+}
+
+
+
+/* STRUCTURE */
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column; 
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  padding: 20px;
+}
+
+#formContent {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+#formFooter {
+  background-color: #f6f6f6;
+  border-top: 1px solid #dce8f1;
+  text-align: center;
+  -webkit-border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px;
+}
+
+
+
+/* TABS */
+
+h2.inactive {
+  color: #cccccc;
+}
+
+h2.active {
+  color: #0d0d0d;
+  border-bottom: 2px solid #5fbae9;
+}
+
+
+
+/* FORM TYPOGRAPHY*/
+
+input[type=button], input[type=submit], input[type=reset]  {
+  background-color: #56baed;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 13px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  margin: 5px 20px 40px 20px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+  background-color: #39ace7;
+}
+
+input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+  -moz-transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -o-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+}
+
+input[type=text] {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+input[type=text]:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
+
+input[type=text]:placeholder {
+  color: #cccccc;
+}
+
+
+
+/* ANIMATIONS */
+
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+/* Simple CSS3 Fade-in Animation */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fadeIn {
+  opacity:0;
+  -webkit-animation:fadeIn ease-in 1;
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:1s;
+  -moz-animation-duration:1s;
+  animation-duration:1s;
+}
+
+.fadeIn.first {
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.fadeIn.second {
+  -webkit-animation-delay: 0.6s;
+  -moz-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+
+.fadeIn.third {
+  -webkit-animation-delay: 0.8s;
+  -moz-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+}
+
+.fadeIn.fourth {
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  animation-delay: 1s;
+}
+
+/* Simple CSS3 Fade-in Animation */
+.underlineHover:after {
+  display: block;
+  left: 0;
+  bottom: -10px;
+  width: 0;
+  height: 2px;
+  background-color: #56baed;
+  content: "";
+  transition: width 0.2s;
+}
+
+.underlineHover:hover {
+  color: #0d0d0d;
+}
+
+.underlineHover:hover:after{
+  width: 100%;
+}
+
+
+
+/* OTHERS */
+
+*:focus {
+    outline: none;
+} 
+
+#icon {
+  width:60%;
+}
+
+* {
+  box-sizing: border-box;
+}
+  
+table {
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+th, td {
+  text-align: center;
+  padding: 0.5em;
+}
+thead th {
+    background: #ffffff;
+    color: darkred;
+}
+tbody th {
+  text-align: left;
+  white-space: pre;
+}
+figure {
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+figcaption {
+  font-style: italic;
+  font-size: 0.875em;
+}
+.js .chart .icon-microphone { display: none; }
+
+.form-options fieldset {
+  border: 0;
+  padding: 0;
+  text-align: right;
+}
+
+.form-options label {
+  font-size: 0.75em;
+  display: inline-block;
+  margin-left: 1em;
+}
+  </style>
+
+  
+</head>
+<body>
+  <div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="active"></h2>
+  <img src="https://www.pentair.com/en~/media/images/logo.png" style="padding-top: 20px;" width="50%" >
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+  <div class="container">
+  <div class="inputWrapper">
+      <p>Tech Support</p>
+      <input type="text" id="password" class="passwordInput" name="login" placeholder="Enter secure key to login">
+      <input type="submit" class="passwordSubmit" value="Log In">
+    <div class="passwordError"></div>
+  </div>
+  <div class="videoWrapper"></div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <p style="color: #091d58;font-weight: bold;" >©SLWIki Pentair</p>
+    </div>
+
+  </div>
+</div>  
+  <script>
+    //password module
+//scoped, but you can still access the password in console if you know the variable name below
+//So, for example, go to CodePen's console and type passwordModule.password
+var passwordModule = {
+  password: "moorparkchino",
+  errorCount: 0,
+  container: $(".container"),
+  inputWrapper: $(".inputWrapper"),
+  inputBox: $(".passwordInput"),
+  submitButton: $(".passwordSubmit"),
+  errorBox: $(".passwordError"),
+  videoDiv: '<table class="chart"><thead><tr><th style="background-color:white;">&nbsp;</th><th>HL</th><th>SL</th><th>BU</th></tr></thead><tbody><tr><th><i style="color:#00bcf2;"class="fa fa-windows"></i> Windows</th><td><a href="https://archive.org/download/HLDeviceWin/HLDeviceWin.exe" <i style="color:#00bcf2;" class="fa fa-download"></i></a></td><td><a href="https://archive.org/download/ScreenlogicConnectWin/ScreenlogicConnectWin.exe" <i style="color:#00bcf2;" class="fa fa-download"></i></a></td><td><a href="https://drive.google.com/uc?export=download&id=0B8ltaHRlyooUY2ZiNUtXMG9uajg" <i style="color:#00bcf2;" class="fa fa-download"></i></a></td></tr><tr><th><i style="color: #999999;" class="fa fa-apple"></i> Mac</th><td><a href="https://archive.org/download/HLDeviceMac/HLDeviceMac.zip" <i style="color: #999999;" class="fa fa-download"></i></a></td><td><a href="https://archive.org/download/ScreenLogicConnectMac_201708/ScreenLogicConnectMac.dmg" <i style="color: #999999;" class="fa fa-download"></i></a></td><td><a href="https://archive.org/download/BrickUpdateMac/BrickUpdateMac.zip" <i style="color: #999999;" class="fa fa-download"></i></a></td></tr></tbody>',
+  lockedOutDiv: "<h1>You have been locked out!</h1>" + 
+  '<p style="color:#249e94;">Please try again later</p>',
+
+  init: function() {   
+    var self = this;
+    
+    //if they have been locked out, dont let them try again
+    //idk for sure if this will work IRL, but it should
+    if(this.getCookie("LockedOut") === "true") {
+      this.container.html("").append(this.lockedOutDiv);
+    }
+    
+    //submit click watcher
+    this.submitButton.click(function() {
+      self.passwordValidator(self.inputBox.val());
+    });
+
+    //input enter watcher
+    this.inputBox.keypress(function(e) {
+      if(e.which == 13) {
+        self.passwordValidator(self.inputBox.val());
+      }
+    });
+  },
+
+  //password validator funciton
+  passwordValidator: function(sentPassword) {
+    if(sentPassword === this.password) {
+      this.inputWrapper.hide();
+      this.container.append(this.videoDiv);
+
+    } else {
+      this.errorHandler(sentPassword);
+    }
+  },
+
+  //error handler function
+  errorHandler: function(sentPassword) { 
+    this.inputBox.val("");
+    this.errorCount++;
+
+    if(this.errorCount >= 5) {
+      this.container.html("").append(this.lockedOutDiv);
+      this.setCookie("lockedOut", "true");
+      console.log(document.cookie);
+      return;
+    }
+
+    if(sentPassword === "undefined" || sentPassword === "") {
+      this.errorBox.text("Please enter login key").show();
+    } else {
+      this.errorBox.text("Incorrect Login Key").show();
+    }
+  },
+
+  //setCookie, str8 from w3schools (ew, i know)
+  setCookie: function(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+  },
+
+  //getCookie, str8 from w3schools (ew, i know)
+  getCookie: function(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length,c.length);
+      }
+    }
+    return "";
+  }
+
+};
+
+//init on load
+$(function() {
+  passwordModule.init();
+})
+  </script>
+</body>
+</html>
