@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Pentair Tech Support</title>
   
+<meta http-equiv="refresh" content="300;https://pentairpool.com" />
 
 <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
@@ -340,7 +341,7 @@ figcaption {
     <!-- Login Form -->
   <div class="container">
   <div class="inputWrapper">
-      <p>Tech Support</p>
+      <p style="font-weight: bold;">Tech Support</p>
       <input type="text" id="password" class="passwordInput" name="login" placeholder="Enter secure key to login">
       <input type="submit" class="passwordSubmit" value="Log In">
     <div class="passwordError"></div>
@@ -367,7 +368,7 @@ var passwordModule = {
   inputBox: $(".passwordInput"),
   submitButton: $(".passwordSubmit"),
   errorBox: $(".passwordError"),
-  videoDiv: '<table class="chart"><thead><tr><th style="background-color:white;">&nbsp;</th><th>HL</th><th>SL</th><th>BU</th></tr></thead><tbody><tr><th><i style="color:#00bcf2;"class="fa fa-windows"></i> Windows</th><td><a href="https://archive.org/download/HLDeviceWin/HLDeviceWin.exe" <i style="color:#00bcf2;" class="fa fa-download"></i></a></td><td><a href="https://archive.org/download/ScreenlogicConnectWin/ScreenlogicConnectWin.exe" <i style="color:#00bcf2;" class="fa fa-download"></i></a></td><td><a href="https://drive.google.com/uc?export=download&id=0B8ltaHRlyooUY2ZiNUtXMG9uajg" <i style="color:#00bcf2;" class="fa fa-download"></i></a></td></tr><tr><th><i style="color: #999999;" class="fa fa-apple"></i> Mac</th><td><a href="https://archive.org/download/HLDeviceMac/HLDeviceMac.zip" <i style="color: #999999;" class="fa fa-download"></i></a></td><td><a href="https://archive.org/download/ScreenLogicConnectMac_201708/ScreenLogicConnectMac.dmg" <i style="color: #999999;" class="fa fa-download"></i></a></td><td><a href="https://archive.org/download/BrickUpdateMac/BrickUpdateMac.zip" <i style="color: #999999;" class="fa fa-download"></i></a></td></tr></tbody>',
+  videoDiv: '<p style="font-weight: bold;">ScreenLogic Recovery Tools</p><table class="chart"><thead><tr><th style="background-color:white;">&nbsp;</th><th>HL</th><th>SL</th><th>BU</th></tr></thead><tbody><tr><th><i style="color:#00bcf2;"class="fa fa-windows"></i> Windows</th><td><a href="https://archive.org/download/HLDeviceWin/HLDeviceWin.exe" <i style="color:#00bcf2;" class="fa fa-download"></i></a></td><td><a href="https://archive.org/download/ScreenlogicConnectWin/ScreenlogicConnectWin.exe" <i style="color:#00bcf2;" class="fa fa-download"></i></a></td><td><a href="https://drive.google.com/uc?export=download&id=0B8ltaHRlyooUY2ZiNUtXMG9uajg" <i style="color:#00bcf2;" class="fa fa-download"></i></a></td></tr><tr><th><i style="color: #999999;" class="fa fa-apple"></i> Mac</th><td><a href="https://archive.org/download/HLDeviceMac/HLDeviceMac.zip" <i style="color: #999999;" class="fa fa-download"></i></a></td><td><a href="https://archive.org/download/ScreenLogicConnectMac_201708/ScreenLogicConnectMac.dmg" <i style="color: #999999;" class="fa fa-download"></i></a></td><td><a href="https://archive.org/download/BrickUpdateMac/BrickUpdateMac.zip" <i style="color: #999999;" class="fa fa-download"></i></a></td></tr></tbody>',
   lockedOutDiv: "<h1>You have been locked out!</h1>" + 
   '<p style="color:#249e94;">Please try again later</p>',
 
