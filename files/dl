@@ -2,14 +2,11 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Pentair Tech Support</title>
-  
-<meta http-equiv="refresh" content="300;https://pentairpool.com" />
-
-<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+  <title>Pentair Tech Support</title> 
+  <meta http-equiv="refresh" content="300;https://pentairpool.com" />
+  <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
 <style>
   @import url('https://fonts.googleapis.com/css?family=Poppins');
 
@@ -135,7 +132,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text] {
+input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -326,7 +323,7 @@ figcaption {
 
   
 </head>
-<body>
+<body onload="load()">
   <div class="wrapper fadeInDown">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -342,7 +339,7 @@ figcaption {
   <div class="container">
   <div class="inputWrapper">
       <p style="font-weight: bold;">Tech Support</p>
-      <input type="text" id="password" class="passwordInput" name="login" placeholder="Enter secure key to login">
+      <input type="password" id="password" class="passwordInput" name="login" placeholder="Enter secure key to login">
       <input type="submit" class="passwordSubmit" value="Log In">
     <div class="passwordError"></div>
   </div>
