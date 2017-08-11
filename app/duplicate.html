@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>is it Duplicate?</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+  
+  <link rel='stylesheet prefetch' href='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.0.8/angular-material.css'>
+<link rel='stylesheet prefetch' href='https://material.angularjs.org/1.0.8/docs.css'>
+
+
+  <style>
+    body {
+    background: #fd5757;
+}
+    .custom-chips .md-chip {
+  position: relative;
+}
+.custom-chips .md-chip .md-chip-remove-container {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    margin-right: 0;
+    height: 24px;
+}
+.custom-chips .md-chip .md-chip-remove-container button.remove {
+      position: relative;
+      height: 24px;
+      width: 24px;
+      line-height: 30px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 50%;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+      transition: background 0.15s linear;
+      display: block;
+}
+.custom-chips .md-chip .md-chip-remove-container button.remove md-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0) scale(0.7);
+        color: white;
+        fill: white;
+}
+.custom-chips .md-chip .md-chip-remove-container button.remove:hover, .chipsdemoBasicUsage .custom-chips .md-chip .md-chip-remove-container button.remove:focus {
+        background: rgba(255, 0, 0, 0.8);
+}
+.custom-chips .md-chip:not(.md-readonly) md-chip-template {
+    padding-right: 5px;
+}
+  </style>
+
+  
+</head>
+
+<body>
+  <div ng-controller="DemoCtrl as ctrl" layout="column" ng-cloak="" class="autocompletedemoBasicUsage" ng-app="MyApp">
+  <md-content class="md-padding">
+    <form ng-submit="$event.preventDefault()">
+      <md-autocomplete
+                       id="autocomplete"
+                       ng-disabled="ctrl.isDisabled"
+                       md-no-cache="ctrl.noCache"
+                       ng-blur="isBlurry"
+                       md-selected-item="ctrl.selectedItem"
+                       md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                       md-search-text="ctrl.searchText"
+                       md-selected-item-change="ctrl.selectedItemChange(item)"
+                       md-items="item in ctrl.querySearch(ctrl.searchText)"
+                       md-item-text="item.display"
+                       md-min-length="1"
+                       placeholder="Is it duplicate?">
+        <md-item-template>
+          <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>&nbsp;<em>({{ctrl.getTypeName(item.type)}})</em>
+        </md-item-template>
+        <md-not-found>
+          Nothing matching "{{ctrl.searchText}}" were found.
+        </md-not-found>
+      </md-autocomplete>
+      <br>
+      <!--<md-checkbox ng-model="ctrl.simulateQuery">Simulate query for results?</md-checkbox>
+      <md-checkbox ng-model="ctrl.noCache">Disable caching of queries?</md-checkbox>-->
+      
+    </form>
+    <md-chips class="custom-chips" ng-model="ctrl.activeTags" md-on-remove="ctrl.updateSearch()" md-on-add="ctrl.updateSearch()">
+      <md-chip-template>
+        <span>
+          <strong>{{$chip.display}}</strong>
+          <em>({{ctrl.getTypeName($chip.type)}})</em>
+        </span>
+      </md-chip-template>
+      <button md-chip-remove class="md-primary remove">
+        <md-icon md-svg-icon="md-close"></md-icon>
+      </button>
+    </md-chips>
+    <div layout="column">
+       <div ng-repeat="item in ctrl.results track by $index">
+         <h3>{{$index + 1}} - {{item.name}}</h3>
+         <md-divider></md-divider>
+        </div>
+    </div>
+    
+    
+  </md-content>
+</div>
+  <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js'></script>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script>
+<script src='https://cdn.gitcdn.link/cdn/angular/bower-material/v1.0.8/angular-material.js'></script>
+
+    <script>
+      (function () {
+  'use strict';
+  angular
+      .module('MyApp',['ngMaterial', 'ngMessages', 'material.svgAssetsCache'])
+      .controller('DemoCtrl', DemoCtrl);
+
+  function DemoCtrl ($scope, $http, $timeout, $q, $log) {
+    var self = this;
+
+    self.simulateQuery = false;
+    self.isDisabled    = false;
+
+    // list of `state` value/display objects
+    self.jobs        = {
+                          "all":[],
+                          "jobs":[],
+                          "fields":[],
+                          "tags":[]
+                        }
+    self.querySearch   = querySearch;
+    self.selectedItemChange = selectedItemChange;
+    self.searchTextChange   = searchTextChange;
+    self.activeTags = [];
+    self.searchText = null;
+    self.selectedItem = null;
+    self.isBlurry = false;
+    self.getTypeName = getTypeName;
+    self.data = [];
+    self.results = [];
+    self.updateSearch = updateSearch;
+    // ******************************
+    // Internal methods
+    // ******************************
+
+    /**
+     * Search for states... use $timeout to simulate
+     * remote dataservice call.
+     */
+     function getTypeName (type) {
+      console.log(type);
+      if (type === 'job') return "Duplicate";
+      else if (type === 'field') return "";
+      else if (type === 'tag') return ""
+      return "";
+     }
+    function querySearch (query) {
+      var results = query ? self.jobs["all"].filter( createFilterFor(query) ) : self.jobs["all"],
+          deferred;
+      if (self.simulateQuery) {
+        deferred = $q.defer();
+        $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
+        return deferred.promise;
+      } else {
+        return results;
+      }
+    }
+
+    function searchTextChange(text) {
+      //$log.info('Text changed to ' + text);
+    }
+
+
+    function selectedItemChange(item) {
+      if(item === undefined) return;
+      $log.info('Item changed to ' + JSON.stringify(item));
+      self.activeTags.push(item);
+      self.searchText = null;
+      self.isBlurry = true;
+      updateSearch();
+      
+    }
+    function updateSearch() {
+      console.log("Update");
+      self.results = [];
+
+      DataLoop:
+      for ( var i = 0; i<self.data.length; i++){
+        var job = self.data[i];
+        // Job by Name
+        for ( var n = 0; n<self.activeTags.length; n++){
+          if(self.activeTags[n].display === job.name){
+            self.results.push(job);
+            continue DataLoop;
+          }
+        }
+        // Job by Fields
+        for ( var f = 0; f<self.activeTags.length; f++){
+          for ( var jf = 0; jf<job.fields.length; jf++){
+            if(self.activeTags[f].display === job.fields[jf]){
+                self.results.push(job);
+                continue DataLoop;
+            }
+          }
+          // Job by Tags
+          for ( var t = 0; t<job.tags.length; t++){
+            if(self.activeTags[f].display === job.tags[t]){
+                self.results.push(job);
+                continue DataLoop;
+            }
+          }
+        }
+      }
+      
+    }
+    /**
+     * Build `jobs` list of key/value pairs
+     */
+    function loadAll() {
+      
+      var all = [];
+      for (var i=0;i<self.jobs["jobs"].length;i++){
+        all.push({
+          value: self.jobs["jobs"][i].toLowerCase(),
+          display: self.jobs["jobs"][i],
+          type: 'job'
+        });
+      }
+      for (var j=0;j<self.jobs["fields"].length;j++){
+        all.push({
+          value: self.jobs["fields"][j].toLowerCase(),
+          display: self.jobs["fields"][j],
+          type: 'field'
+        });
+      }
+      for (var k=0;k<self.jobs["tags"].length;k++){
+        all.push({
+          value: self.jobs["tags"][k].toLowerCase(),
+          display: self.jobs["tags"][k],
+          type: 'tag'
+        });
+      }
+      self.jobs["all"] = all;
+
+        console.log(self.data);
+    }
+
+    /**
+     * Create filter function for a query string
+     */
+    function createFilterFor(query) {
+      var lowercaseQuery = angular.lowercase(query);
+
+      return function filterFn(item) {
+        return (item.value.indexOf(lowercaseQuery) === 0);
+      };
+
+    }
+    var spreadsheetID = "18SxxBU9606FSUkWLotJuKBhK-CpLqhyTYCTMlsSpZwo";
+    function getFields() {
+      $http.get("https://spreadsheets.google.com/feeds/list/"+spreadsheetID+"/2/public/basic?alt=json")
+      .then(function(response) {
+        var allFields = [];
+          for ( var i = 0; i<response.data.feed.entry.length; i++) {
+            allFields.push(response.data.feed.entry[i].title.$t);
+            
+          }
+          self.jobs["fields"] = allFields;
+          getTags();
+      });
+    }
+    function getTags() {
+      $http.get("https://spreadsheets.google.com/feeds/list/"+spreadsheetID+"/3/public/basic?alt=json")
+      .then(function(response) {
+        var allTags = [];
+          for ( var i = 0; i<response.data.feed.entry.length; i++) {
+            allTags.push(response.data.feed.entry[i].title.$t);
+
+          }
+          self.jobs["tags"] = allTags;
+          getJobs();
+      });
+    }
+    function getJobs() {
+      $http.get("https://spreadsheets.google.com/feeds/list/"+spreadsheetID+"/1/public/basic?alt=json")
+      .then(function(response) {
+        var allJobs = [];
+          for ( var i = 0; i<response.data.feed.entry.length; i++) {
+            var entry = response.data.feed.entry[i];
+            var content = entry.content.$t;
+            var fields, tags = [];
+            var _f,_t = "";
+
+            if(content.indexOf(",") === -1){
+              if (content.indexOf("berufsfeld:") != -1) {
+                _f = content;
+              }
+              if (content.indexOf("tags:") != -1) {
+                _t = content;
+              }
+            } else {
+              _f = content.split(",")[0].toString();
+              _t = content.split(",")[1].toString();
+            }
+            _f = _f.slice(_f.indexOf(":")+2);
+            fields = _f.split("/");
+            _t = _t.slice(_t.indexOf(":")+2);
+            tags = _t.split("/");
+            var newJob = {
+              "name" : entry.title.$t,
+              "fields" : fields,
+              "tags" : tags
+            };
+            allJobs.push(entry.title.$t);
+            self.data.push(newJob);
+
+          }
+        self.jobs["jobs"] = allJobs;
+        loadAll();
+      });
+    }
+    getFields();
+  }
+})();
+
+  </script>
+
+</body>
+</html>
+
