@@ -718,7 +718,20 @@ function easeInOut(t) {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  var phrases = shuffleArray(["Loading...","Fixed Chrome Bug","Fixed Chrome Bug","Pending new features", "Pending new features"]);
+  var phrases = shuffleArray([
+    "Loading...",
+    "Fixed Chrome Bug",
+    "Pending new features",
+    "Loading...",
+    "Fixed Chrome Bug",
+    "Pending new features",
+    "Loading...",
+    "Fixed Chrome Bug",
+    "Pending new features",
+     "Loading...",
+    "Fixed Chrome Bug",
+    "Pending new features"
+  ]);
   addPhrasesToDocument(phrases);
   var start_time = new Date().getTime();
   var upward_moving_group = document.getElementById("phrases");
