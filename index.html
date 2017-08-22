@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>SL Wiki Beta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+       body, html
+            {
+                margin: 0; padding: 0; height: 100%; overflow: hidden;
+            }
+
+   .frame { width: 100%; height: 100%; }
+    </style>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+  <script>
+      $(document).ready(function () {
+          // Hide the div
+          $("#page").hide();
+          // Show the div after 5s
+          $("#page").delay(6000).fadeIn(100);  
+      });    
+  </script>
+</head>
+<body>
+   <div class="frame" id="loading"><iframe width="100%" height="100%" src="loading" frameborder="0" allowfullscreen></iframe></div>
+  <div class="frame" id="page"><iframe width="100%" height="100%" src="home" frameborder="0" allowfullscreen></iframe></div>
+<script>
+  window.onload = function(){
+  
+(function(){
+  var counter = 5;
+
+  setInterval(function() {
+    counter--;
+    if (counter >= 0) {
+      span = document.getElementById("count");
+      span.innerHTML = counter;
+    }
+    else
+      {
+          document.getElementById("loading").style.display = "none";
+        
+      }
+    // Display 'counter' wherever you want to display it.
+    if (counter === 0) {
+        clearInterval(counter);
+    }
+    
+  }, 1000);
+    
+})();
+  
+};
+  </script>
+</body>
+</html>
