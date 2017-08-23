@@ -1,6 +1,7 @@
 @echo off
 setlocal EnableDelayedExpansion
 color A
+echo SlWIki ...
 echo Opening Chrome:)...
 ping -n 2 127.0.0.1>nul
 echo.
