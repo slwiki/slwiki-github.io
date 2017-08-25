@@ -1,12 +1,21 @@
+
 <!DOCTYPE html>
 <html >
 <head>
   <meta charset="UTF-8">
   <title>SL Wiki Beta</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <style>
   body {
     overflow:hidden;
+}
+  .greeting {
+    position: absolute;
+    font-size: 90px;
+    color: white;
+    top: -5px;
+    font-family: 'Raleway', sans-serif;
 }
 .loader{
     position: relative;
@@ -816,14 +825,36 @@
     fill: #FF6D92;
   }
 }
+  
 
   </style>
   
 </head>
-
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <body>
 
   <div id="page">
+      <p class="greeting"></p>
+
+    <script>
+      var thehours = new Date().getHours();
+	var themessage;
+	var morning = ('Good morning!');
+	var afternoon = ('Good afternoon!');
+	var evening = ('Good evening!');
+
+	if (thehours >= 0 && thehours < 12) {
+		themessage = morning; 
+
+	} else if (thehours >= 12 && thehours < 17) {
+		themessage = afternoon;
+
+	} else if (thehours >= 17 && thehours < 24) {
+		themessage = evening;
+	}
+
+	$('.greeting').append(themessage);
+  </script>
       <div class="loader">
         <div class="tube">
             <div class="line1"></div>
