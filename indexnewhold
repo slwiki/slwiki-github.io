@@ -14,7 +14,7 @@
     </style>
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
   <script>
-   $(window).load(function() {
+         $(document).ready(function () {
           $("#page").hide();
           $("#page").delay(1000).fadeIn(500);  
       });    
