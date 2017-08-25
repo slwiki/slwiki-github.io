@@ -14,40 +14,14 @@
     </style>
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
   <script>
-     $('#loading').show(0).delay(5000).hide(0);
-      });    
+setTimeout(function() {
+  $('#loading').hide()
+}, 4000);
   </script>
 </head>
 <body>
    <div class="frame" id="loading"><iframe width="100%" height="100%" src="loading" frameborder="0" allowfullscreen></iframe></div>
-  <div class="frame" id="page"><iframe width="100%" height="100%" src="home" frameborder="0" allowfullscreen></iframe></div>
-<script>
-  window.onload = function(){
-  
-(function(){
-  var counter = 5;
+   <div class="frame" id="page"><iframe width="100%" height="100%" src="home" frameborder="0" allowfullscreen></iframe></div>
 
-  setInterval(function() {
-    counter--;
-    if (counter >= 0) {
-      span = document.getElementById("count");
-      span.innerHTML = counter;
-    }
-    else
-      {
-          document.getElementById("loading").style.display = "none";
-        
-      }
-    // Display 'counter' wherever you want to display it.
-    if (counter === 0) {
-        clearInterval(counter);
-    }
-    
-  }, 1000);
-    
-})();
-  
-};
-  </script>
 </body>
 </html>
