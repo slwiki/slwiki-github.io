@@ -74,7 +74,7 @@
                        md-items="item in ctrl.querySearch(ctrl.searchText)"
                        md-item-text="item.display"
                        md-min-length="1"
-                       placeholder="Hurricane affected?">
+                       placeholder="Hurricane affected?Please Enter Zip code to find out.">
         <md-item-template>
           <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>&nbsp;<em>({{ctrl.getTypeName(item.type)}})</em>
         </md-item-template>
