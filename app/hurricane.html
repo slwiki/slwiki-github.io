@@ -74,7 +74,7 @@
                        md-items="item in ctrl.querySearch(ctrl.searchText)"
                        md-item-text="item.display"
                        md-min-length="1"
-                       placeholder="Is it duplicate?">
+                       placeholder="Hurricane affected?">
         <md-item-template>
           <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.display}}</span>&nbsp;<em>({{ctrl.getTypeName(item.type)}})</em>
         </md-item-template>
@@ -157,7 +157,7 @@
      */
      function getTypeName (type) {
       console.log(type);
-      if (type === 'job') return "Duplicate";
+      if (type === 'job') return "Affected";
       else if (type === 'field') return "";
       else if (type === 'tag') return ""
       return "";
