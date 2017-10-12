@@ -40,7 +40,7 @@ echo.
 echo.
 echo.
 echo.
-echo    Initializing.....
+echo   All done you know what to do now:) 
 echo ---------------------------------------
 echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|         
 
