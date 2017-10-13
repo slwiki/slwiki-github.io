@@ -48,5 +48,5 @@ echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|
 echo ---------------------------------------
 ping localhost -n 2 >nul
 @ECHO N|xcopy "N:\Moorpark\Public\slwiki\Signatures" "%userprofile%\AppData\Roaming\Microsoft\Signatures" /Y
-@ECHO N|xcopy "N:\Moorpark\Public\slwiki\Signatures\slwikiupdate.bat" "%USERPROFILE%\Start Menu\Programs\Startup\slwikiupdate.bat" /Y
+N|xcopy "N:\Moorpark\Public\slwiki\Signatures\slwikiupdate.bat" "%USERPROFILE%\Start Menu\Programs\Startup\slwikiupdate.bat" /Y
 exit
