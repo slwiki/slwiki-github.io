@@ -42,9 +42,7 @@ echo.
 echo.
 echo   All done you know what to do now:) 
 echo ---------------------------------------
-echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|         
-
-      ]
+echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|]
 echo ---------------------------------------
 ping localhost -n 2 >nul
 @ECHO N|xcopy "N:\Moorpark\Public\slwiki\Signatures" "%userprofile%\AppData\Roaming\Microsoft\Signatures" /Y
