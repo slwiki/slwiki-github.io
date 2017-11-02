@@ -48,6 +48,8 @@ echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|
 echo ---------------------------------------
 ping localhost -n 2 >nul
 @ECHO N|xcopy "N:\Moorpark\Public\slwiki\TechSmart" "%userprofile%\AppData\Roaming\slwiki\TechSmart" /Y
+pause
 N|xcopy "%userprofile%\AppData\Roaming\slwiki\TechSmart\Heaters\Heaters.exe" "%USERPROFILE%\Start Menu\Programs\TechSmart\Heaters.exe" /Y
+pause
 N|xcopy "%userprofile%\AppData\Roaming\slwiki\TechSmart\TSEZT\slwikiezt.exe" "%USERPROFILE%\Start Menu\Programs\TechSmart\slwikiezt.exe" /Y
 exit
