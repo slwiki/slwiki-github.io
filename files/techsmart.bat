@@ -26,7 +26,7 @@ echo.
 echo.
 echo.
 echo.
-echo    Loading.          Please Wait
+echo Shortcuts will be created on start menu under startup folder:)
 echo ---------------------------------------
 echo ^|^|                                  ]
 echo ---------------------------------------
@@ -40,37 +40,13 @@ echo.
 echo.
 echo.
 echo.
-echo   All done Enjoy:)
+echo   Almost done:)
 echo ---------------------------------------
 echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|]
 echo ---------------------------------------
 ping localhost -n 2 >nul
-mkdir %userprofile%\AppData\Roaming\slwiki\TechSmart
-@ECHO N|xcopy "N:\Moorpark\Public\slwiki\TechSmart\" "%userprofile%\AppData\Roaming\slwiki\TechSmart\" /Y
+@ECHO N|xcopy "N:\Moorpark\Public\slwiki\TechSmart" "c:\slwiki\TechSmart" /Y
 pause
-mkdir %USERPROFILE%\Start Menu\Programs\TechSmart\
-@echo off
-
-set SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
-
-echo Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
-echo sLinkFile = "%USERPROFILE%\Start Menu\Programs\TechSmart\Heaters.lnk" >> %SCRIPT%
-echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %SCRIPT%
-echo oLink.TargetPath = "%userprofile%\AppData\Roaming\slwiki\TechSmart\Heaters\Heaters.exe" >> %SCRIPT%
-echo oLink.Save >> %SCRIPT%
-
-cscript /nologo %SCRIPT%
-del %SCRIPT%
-pause
-@echo off
-
-set SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
-
-echo Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
-echo sLinkFile = "%USERPROFILE%\Start Menu\Programs\TSEZT\slwikiezt.lnk" >> %SCRIPT%
-echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %SCRIPT%
-echo oLink.TargetPath = "%userprofile%\AppData\Roaming\slwiki\TechSmart\TSEZT\slwikiezt.exe" >> %SCRIPT%
-echo oLink.Save >> %SCRIPT%
-
-cscript /nologo %SCRIPT%
-del %SCRIPT%
+N|xcopy "c:\slwiki\TechSmart\Heaters\Heaters.exe" "%USERPROFILE%\Start Menu\Programs\Startup\Heaters.exe" /Y
+N|xcopy "c:\slwiki\TechSmart\TSEZT\slwikiezt.exe" "%USERPROFILE%\Start Menu\Programs\Startup\slwikiezt.exe" /Y
+exit
