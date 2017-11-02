@@ -1,8 +1,8 @@
 @echo off
 setlocal EnableDelayedExpansion
 color A
-echo SlWIki
-echo Installing SlWiki TechSmart...
+echo SlWIki EasyTouch TechSmart
+echo Creating Shortcuts:)...
 ping -n 2 127.0.0.1>nul
 echo.
 echo.
@@ -26,7 +26,7 @@ echo.
 echo.
 echo.
 echo.
-echo Shortcuts will be created on start menu under startup folder:)
+echo   Shortcut will be created on your desktop:)
 echo ---------------------------------------
 echo ^|^|                                  ]
 echo ---------------------------------------
@@ -40,11 +40,10 @@ echo.
 echo.
 echo.
 echo.
-echo   Almost done:)
+echo   All done you know what to do now:) 
 echo ---------------------------------------
 echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|]
 echo ---------------------------------------
 ping localhost -n 2 >nul
-@ECHO N|xcopy "N:\Moorpark\Public\slwiki\TechSmart" "c:\slwiki\TechSmart" /Y
-N|xcopy "c:\slwiki\TechSmart\Heaters\Heaters.exe" "%USERPROFILE%\Start Menu\Programs\Startup\Heaters.exe" /Y
+@ECHO N|xcopy "N:\Moorpark\Public\slwiki\TechSmart\EasyTouch\EasyTouch.lnk" "%userprofile%\desktop" /Y 
 exit
