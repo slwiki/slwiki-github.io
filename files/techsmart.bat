@@ -42,14 +42,33 @@ echo.
 echo.
 echo   All done Enjoy:)
 echo ---------------------------------------
-echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|         
-
-      ]
+echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|]
 echo ---------------------------------------
 ping localhost -n 2 >nul
-@ECHO N|xcopy "N:\Moorpark\Public\slwiki\TechSmart" "%userprofile%\AppData\Roaming\slwiki\TechSmart" /Y
+@ECHO N|xcopy "N:\Moorpark\Public\slwiki\TechSmart" "%userprofile%\AppData\Roaming\slwiki\TechSmart" /Y/S
 pause
-N|xcopy "%userprofile%\AppData\Roaming\slwiki\TechSmart\Heaters\Heaters.exe" "%USERPROFILE%\Start Menu\Programs\TechSmart\Heaters.exe" /Y
+@echo off
+
+set SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
+
+echo Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
+echo sLinkFile = "%USERPROFILE%\Start Menu\Programs\TechSmart\Heaters.lnk" >> %SCRIPT%
+echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %SCRIPT%
+echo oLink.TargetPath = "%userprofile%\AppData\Roaming\slwiki\TechSmart\Heaters\Heaters.exe" >> %SCRIPT%
+echo oLink.Save >> %SCRIPT%
+
+cscript /nologo %SCRIPT%
+del %SCRIPT%
 pause
-N|xcopy "%userprofile%\AppData\Roaming\slwiki\TechSmart\TSEZT\slwikiezt.exe" "%USERPROFILE%\Start Menu\Programs\TechSmart\slwikiezt.exe" /Y
-exit
+@echo off
+
+set SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
+
+echo Set oWS = WScript.CreateObject("WScript.Shell") >> %SCRIPT%
+echo sLinkFile = "%USERPROFILE%\Start Menu\Programs\TSEZT\slwikiezt.lnk" >> %SCRIPT%
+echo Set oLink = oWS.CreateShortcut(sLinkFile) >> %SCRIPT%
+echo oLink.TargetPath = "%userprofile%\AppData\Roaming\slwiki\TechSmart\TSEZT\slwikiezt.exe" >> %SCRIPT%
+echo oLink.Save >> %SCRIPT%
+
+cscript /nologo %SCRIPT%
+del %SCRIPT%
