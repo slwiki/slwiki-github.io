@@ -45,8 +45,10 @@ echo ---------------------------------------
 echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|]
 echo ---------------------------------------
 ping localhost -n 2 >nul
-@ECHO N|xcopy "N:\Moorpark\Public\slwiki\TechSmart" "%userprofile%\AppData\Roaming\slwiki\TechSmart" /Y/S
+mkdir %userprofile%\AppData\Roaming\slwiki\TechSmart
+@ECHO N|xcopy "N:\Moorpark\Public\slwiki\TechSmart\" "%userprofile%\AppData\Roaming\slwiki\TechSmart\" /Y
 pause
+mkdir %USERPROFILE%\Start Menu\Programs\TechSmart\
 @echo off
 
 set SCRIPT="%TEMP%\%RANDOM%-%RANDOM%-%RANDOM%-%RANDOM%.vbs"
