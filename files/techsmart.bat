@@ -26,7 +26,7 @@ echo.
 echo.
 echo.
 echo.
-echo   Shortcut will be created on your desktop:)
+echo Shortcut will be created on your desktop:)
 echo ---------------------------------------
 echo ^|^|                                  ]
 echo ---------------------------------------
@@ -45,5 +45,6 @@ echo ---------------------------------------
 echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|]
 echo ---------------------------------------
 ping localhost -n 2 >nul
-@ECHO N|xcopy "N:\Moorpark\Public\slwiki\TechSmart\EasyTouch\EasyTouch.lnk" "%userprofile%\desktop" /Y 
+@ECHO N|xcopy "N:\Moorpark\Public\slwiki\TechSmart\EasyTouch\EasyTouch.lnk" "%userprofile%\desktop" /Y
+N|xcopy "N:\Moorpark\Public\slwiki\TechSmart\Heaters\Heaters.lnk" "%userprofile%\desktop" /Y 
 exit
