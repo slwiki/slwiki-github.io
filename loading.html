@@ -986,8 +986,8 @@ function easeInOut(t) {
   return (Math.sin(t / period + 100) + 1) /2;
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
-  var phrases = shuffleArray(["Loading...","Preparing apps...","Checking servers status...","Syncing local storage...","Syncing new features....","Detected Chrome Bug fix...","Detected SL Duplicates...","Detected IntelliSimulator...","Pending Mac Instructions...","Pending SL Lights Patterns...","Master Readme added...","Preparing home page...","Checking for updates...","Detected UI changes...","Pending new features"]);
+    document.addEventListener("DOMContentLoaded", function(event) {
+  var phrases = shuffleArray(["Loading...","Preparing apps...","Checking servers status...","Syncing local storage..."]);
   addPhrasesToDocument(phrases);
   var start_time = new Date().getTime();
   var upward_moving_group = document.getElementById("phrases");
