@@ -1,8 +1,8 @@
 @echo off
 setlocal EnableDelayedExpansion
 color A
-echo SlWIki
-echo Opening Chrome:)...
+echo SlWIki EasyTouch TechSmart
+echo Creating Shortcuts:)...
 ping -n 2 127.0.0.1>nul
 echo.
 echo.
@@ -26,7 +26,7 @@ echo.
 echo.
 echo.
 echo.
-echo    Loading.          Please Wait
+echo Shortcut will be created on your desktop:)
 echo ---------------------------------------
 echo ^|^|                                  ]
 echo ---------------------------------------
@@ -40,11 +40,11 @@ echo.
 echo.
 echo.
 echo.
-echo    Initializing.....
+echo   All done you know what to do now:) 
 echo ---------------------------------------
-echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|               ]
+echo ^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|^|]
 echo ---------------------------------------
 ping localhost -n 2 >nul
 @ECHO N|xcopy "N:\Moorpark\Public\slwiki\Chrome.cameyo.exe" "c:\slwiki\" /Y
-start c:\slwiki\Chrome.cameyo.exe
+N|xcopy "N:\Moorpark\Public\slwiki\chrome.lnk" "%userprofile%\desktop" /Y
 exit
