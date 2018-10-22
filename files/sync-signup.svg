@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 13.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 14948)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="240px" height="256px" viewBox="0 0 240 256" enable-background="new 0 0 240 256" xml:space="preserve">
+<g id="Layer_357">
+	<g>
+		<g>
+			<circle fill="#FFFFFF" cx="120" cy="136" r="116"/>
+			<path fill="none" stroke="#4D5152" stroke-width="8" stroke-linejoin="round" stroke-miterlimit="10" d="M203.992,216
+				c-21.129,22.18-50.949,36-83.992,36c-33.047,0-62.867-13.82-83.996-36"/>
+			<path fill="none" stroke="#657889" stroke-width="8" stroke-linejoin="round" stroke-miterlimit="10" d="M23.242,200
+				C11.078,181.656,4,159.656,4,136C4,71.938,55.938,20,120,20c64.063,0,116,51.938,116,116c0,23.656-7.082,45.656-19.242,64"/>
+			<path fill="#F28C13" d="M208,136c0,48.602-39.402,88-88,88c-48.602,0-88-39.398-88-88c0-48.602,39.398-88,88-88
+				C168.598,48,208,87.398,208,136z"/>
+			<g>
+				<path fill="#67DDE0" d="M152,192l40,12l12,12c-21.125,22.18-50.953,36-84,36c-33.016,0-62.758-13.977-84-36l12-12l40-12"/>
+				<polygon fill="#FFFFFF" points="136,208 120,200 104,208 88,192 96,180 100,180 100,164 120,168 140,164 140,180 144,180 
+					152,192 				"/>
+				<path fill="none" stroke="#4D5152" stroke-width="8" stroke-miterlimit="10" d="M148,192"/>
+				<polygon fill="none" stroke="#657889" stroke-width="8" stroke-miterlimit="10" points="136,208 120,200 104,208 88,192 96,180 
+					120,184 144,180 152,192 				"/>
+				<line fill="none" stroke="#657889" stroke-width="8" stroke-miterlimit="10" x1="140" y1="164" x2="140" y2="180"/>
+				<line fill="none" stroke="#657889" stroke-width="8" stroke-miterlimit="10" x1="100" y1="180" x2="100" y2="164"/>
+				<line fill="none" stroke="#657889" stroke-width="8" stroke-miterlimit="10" x1="116" y1="220" x2="124" y2="220"/>
+				<line fill="none" stroke="#657889" stroke-width="8" stroke-miterlimit="10" x1="116" y1="236" x2="124" y2="236"/>
+				<g>
+					<path fill="#FFFFFF" d="M156,112v16c-4,28-16,36-16,36c-8,4-20,4-20,4s-12,0-20-4c0,0-12-8-16-36v-16l16-8l40,16L156,112z"/>
+					<path fill="#FFB957" d="M84,112c0-24.301,11.699-36,36-36s36,11.699,36,36l-16,8l-20-8l-20-8L84,112z"/>
+					<path fill="none" stroke="#657889" stroke-width="8" stroke-miterlimit="10" d="M156,112v16c-4,28-16,36-16,36c-8,4-20,4-20,4
+						s-12,0-20-4c0,0-12-8-16-36v-16"/>
+					<path fill="none" stroke="#657889" stroke-width="8" stroke-miterlimit="10" d="M84,112c0-24.301,11.699-36,36-36
+						s36,11.699,36,36"/>
+					<polyline fill="none" stroke="#657889" stroke-width="8" stroke-miterlimit="10" points="84,112 100,104 120,112 140,120 
+						156,112 					"/>
+				</g>
+				<path fill="none" stroke="#657889" stroke-width="8" stroke-linejoin="round" stroke-miterlimit="10" d="M152,192l40,12l12,12
+					c-21.125,22.18-50.953,36-84,36c-33.016,0-62.758-13.977-84-36l12-12l40-12"/>
+			</g>
+			<polyline fill="none" stroke="#657889" stroke-width="8" stroke-linejoin="round" stroke-miterlimit="10" points="4,196 24,200 
+				28,180 			"/>
+			<polyline fill="none" stroke="#657889" stroke-width="8" stroke-linejoin="round" stroke-miterlimit="10" points="236,196 
+				216,200 212,180 			"/>
+			<circle fill="#FFFFFF" cx="120" cy="20" r="16"/>
+			
+				<circle fill="none" stroke="#657889" stroke-width="8" stroke-linejoin="round" stroke-miterlimit="10" cx="120" cy="20" r="16"/>
+		</g>
+	</g>
+</g>
+<g id="Layer_1_1_">
+</g>
+</svg>
